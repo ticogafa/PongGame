@@ -29,14 +29,15 @@
 
 ## 📄 Descrição
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+O Pong é um dos primeiros jogos eletrônicos de todos os tempos, lançado em 1972. Ele simula um jogo de tênis, onde dois jogadores controlam retângulos verticais, conhecidos como "raquetes", que se movem para cima e para baixo nas extremidades esquerda e direita da tela. Uma bola é lançada entre as duas raquetes, e a sua trajetória é afetada pelo ângulo de colisão com as raquetes e as paredes superior e inferior da tela. A estética é simples, com gráficos monocromáticos e sons básicos para os impactos da bola.
 
 ## 🎲 Objetivo do Jogo
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+O objetivo do Pong é rebater a bola de modo que ela ultrapasse a raquete do adversário, marcando pontos quando isso acontece. Ao mesmo tempo, os jogadores precisam evitar que a bola passe pela sua própria raquete. O primeiro jogador a atingir um determinado número de pontos ganha a partida. A jogabilidade exige precisão, timing e reflexos rápidos para conseguir vencer.
 
-### ⚾ Múltiplas Bolas:
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+### 🤠 Duelos do Velho Oeste
+O nosso novo recurso será a troca das raquetes por cowboys e a bola por munição, o objetivo será acertar o outro jogador.
+
 
 ### 👾 Pontuação Duplicada:
 Lorem Ipsum has been the industry's standard
