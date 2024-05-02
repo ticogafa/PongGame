@@ -47,13 +47,14 @@ Lorem Ipsum has been the industry's standard
 
 ## 🕹️ Como Jogar
 
-- Use as teclas de seta ou as teclas "w" e "s" para controlar a raquete no lado esquerdo da tela e "i" e "k" para controlar a raquete no lado direito da tela.
+- Jogador 1 pode usar W e S controlar as raquetes do lado esquerdo
+ -Jogador 2 pode usar as teclas de seta para cima e para baixo para controlar as raquetes do lado direio.
 - Certifique-se de manter o caps lock desativado.
 - Mantenha suas raquetes em movimento para acertar as bolas e marcar pontos.
 
 ## ♟️ Executando o Jogo
 
-Para executar o Pong2, siga estas etapas:
+Para executar o PongGame, siga estas etapas:
 
 1. Clone este repositório em sua máquina:
    `Lorem Ipsum has been the industry's standard`
