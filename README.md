@@ -25,7 +25,7 @@
   /></a>
 </p>
 
-## 🖥️ XYZ
+## 🖥️ PongGame
 
 ## 📄 Descrição
 
@@ -69,47 +69,19 @@ Para executar o Pong2, siga estas etapas:
 
 <ul>
   <li>
-    <a href="https://github.com/Thomazrlima">Thomaz Lima</a> -
-    trl@cesar.school 📩
+    <a href="https://github.com/Thomazrlima">Tiago Gurgel</a> -
+    tgafa@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/hsspedro">Pedro Henrique Silva</a> -
-    phss@cesar.school 📩
+    <a href="https://github.com/hsspedro">Miguel Batista</a> -
+    msb2@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/Sofia-Saraiva">Sofia Saraiva</a> -
-    spscl@cesar.school 📩
+    <a href="https://github.com/Sofia-Saraiva">Rafael Barros</a> -
+    ralb@cesar.school 📩
   </li>
 </ul>
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/Thomazrlima">
-        <img src="https://avatars3.githubusercontent.com/Thomazrlima" width="100px;" alt="Foto de Thomaz"/><br>
-        <sub>
-          <b>Thomaz R. Lima</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/hsspedro">
-        <img src="https://avatars.githubusercontent.com/hsspedro" width="100px;" alt="Foto de Pedro"/><br>
-        <sub>
-          <b>Pedro S. Souza</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Sofia-Saraiva">
-        <img src="https://avatars.githubusercontent.com/Sofia-Saraiva" width="100px;" alt="Foto de Sofia"/><br>
-        <sub>
-          <b>Sofia Saraiva</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
 
 ## Licença
 
