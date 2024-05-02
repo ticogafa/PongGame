@@ -71,15 +71,15 @@ Para executar o PongGame, siga estas etapas:
 
 <ul>
   <li>
-    <a href="https://github.com/Thomazrlima">Tiago Gurgel</a> -
+    <a href="https://github.com/raf7525">Rafael Barros</a> -
     tgafa@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/hsspedro">Miguel Batista</a> -
+    <a href="https://github.com/MigueldsBatista"></a> Miguel Batista -
     msb2@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/Sofia-Saraiva">Rafael Barros</a> -
+    <a href="https://github.com/ticogafa">Tiago Gurgel</a> -
     ralb@cesar.school 📩
   </li>
 </ul>
