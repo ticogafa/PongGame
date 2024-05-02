@@ -75,7 +75,7 @@ Para executar o PongGame, siga estas etapas:
     tgafa@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/MigueldsBatista"></a> Miguel Batista -
+    <a href="https://github.com/MigueldsBatista">Miguel Batista </a> -
     msb2@cesar.school 📩
   </li>
   <li>
