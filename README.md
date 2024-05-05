@@ -14,7 +14,7 @@
     src="https://img.shields.io/github/languages/count/Sofia-Saraiva/Semester3-CESAR-School?style=flat&logo=python"
     alt="Language Count"
   />
-  <img
+  <img 
     src="https://img.shields.io/github/commit-activity/t/Sofia-Saraiva/Semester3-CESAR-School?style=flat&logo=github"
     alt="Commit Activity"
   />
@@ -22,7 +22,7 @@
     ><img
       src="https://img.shields.io/github/license/Sofia-Saraiva/Semester3-CESAR-School"
       alt="License"
-  /></a>
+  /></a>t
 </p>
 
 ## 🖥️ PongGame
