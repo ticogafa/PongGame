@@ -28,13 +28,13 @@ Escreva no terminal:
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 34, y = 12;  // Posição inicial do elemento na tela (x, y)
+int x = 40, y = 12;  // Posição inicial do elemento na tela (x, y)
 int incX = 1, incY = 1;  // Incrementos para mover o elemento na tela
 
 void printHello(int nextX, int nextY) {
-    screenSetColor(CYAN, DARKGRAY);  // Define as cores de texto e fundo
-    //screenGotoxy(x, y);  Move o cursor para a posição (x, y)
-    //printf("           ");  Limpa o texto anterior
+    screenSetColor(YELLOW, DARKGRAY);  // Define as cores de texto e fundo
+    screenGotoxy(x, y);  // Move o cursor para a posição (x, y)
+    printf(" ");  // Limpa o texto anterior
     x = nextX;  // Atualiza a posição x
     y = nextY;  // Atualiza a posição y
     screenGotoxy(x, y);  // Move o cursor para a nova posição
@@ -43,11 +43,10 @@ void printHello(int nextX, int nextY) {
 
 void printKey(int ch) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores para texto e fundo
-    screenGotoxy(35, 22);  // Move o cursor para a posição para imprimir o código da tecla
-    printf("Key code :");
+    screenGotoxy(MINX, MAXY+7);  // Move o cursor para a posição para imprimir o código da tecla
+    printf("Raquete Esquerda: W up S down/ Raquete Direita I up K down:");
 
-    screenGotoxy(34, 23);  // Move o cursor para posição onde o código é mostrado
-    printf("    ");  // Limpa o texto anterior
+    
 
     if (ch == 27)  // Se o código for o de "Esc", ajusta a posição
         screenGotoxy(36, 23);
@@ -65,12 +64,13 @@ int raqueteEsquerdaY=10;  // Posição inicial da raquete
 void moverRaqueteDireitaParaCima() {
     if (raqueteDireitaY > MINY + 2) {  // Verifica se não está no limite superior
         raqueteDireitaY--;  // Move para cima
+        screenGotoxy(MAXX-2, raqueteDireitaY+2);
+        printf(" ");
         screenGotoxy(MAXX-2, raqueteDireitaY);  // Move cursor para a posição da raquete
         printf("|");    
         screenGotoxy(MAXX-2, raqueteDireitaY+1);
         printf("|");
-        screenGotoxy(MAXX-2, raqueteDireitaY+2);
-        printf(" ");
+        
         screenUpdate();  // Atualiza a tela
     }
 }
@@ -78,12 +78,14 @@ void moverRaqueteDireitaParaCima() {
 void moverRaqueteDireitaParaBaixo() {
     if (raqueteDireitaY < MAXY - 2) {  // Verifica se não está no limite inferior
         raqueteDireitaY++;  // Move para baixo
+
         screenGotoxy(MAXX-2, raqueteDireitaY);  // Move cursor para a posição da raquete
         printf("|");
         screenGotoxy(MAXX-2, raqueteDireitaY-1);
         printf("|"); // Imprime a raquete
         screenGotoxy(MAXX-2, raqueteDireitaY-2);
         printf(" ");
+       
         screenUpdate();  // Atualiza a tela
     }
 }
@@ -92,12 +94,13 @@ void moverRaqueteDireitaParaBaixo() {
 void moverRaqueteEsquerdaParaCima() {
     if (raqueteEsquerdaY > MINY + 2) {  // Verifica se não está no limite superior
         raqueteEsquerdaY--;  // Move para cima
+        screenGotoxy(2, raqueteEsquerdaY+2); // Move cursor para a posição da raquete
+        printf(" ");
         screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
         printf("|");
         screenGotoxy(2, raqueteEsquerdaY+1);
         printf("|");
-        screenGotoxy(2, raqueteEsquerdaY+2); // Move cursor para a posição da raquete
-        printf(" ");
+
         screenUpdate();
     }
 }
@@ -105,12 +108,13 @@ void moverRaqueteEsquerdaParaCima() {
 void moverRaqueteEsquerdaParaBaixo() {
     if (raqueteEsquerdaY < MAXY - 2) {  // Verifica se não está no limite inferior
         raqueteEsquerdaY++;  // Move para baixo
+        screenGotoxy(2, raqueteEsquerdaY-2); // Move cursor para a posição da raquete
+        printf(" "); 
         screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
         printf("|");
         screenGotoxy(2, raqueteEsquerdaY-1);
         printf("|");  
-        screenGotoxy(2, raqueteEsquerdaY-2); // Move cursor para a posição da raquete
-        printf(" "); 
+
 
         screenUpdate();  // Atualiza a tela
     }
