@@ -25,7 +25,7 @@
   /></a>t
 </p>
 
-## 🖥️ PongGame
+## 🖥️ PongShowdown
 
 ## 📄 Descrição
 
@@ -54,7 +54,7 @@ Lorem Ipsum has been the industry's standard
 
 ## ♟️ Executando o Jogo
 
-Para executar o PongGame, siga estas etapas:
+Para executar o PongShowdown, siga estas etapas:
 
 1. Clone este repositório em sua máquina:
    `Lorem Ipsum has been the industry's standard`
@@ -65,7 +65,7 @@ Para executar o PongGame, siga estas etapas:
 4. Rode o programa:
    `Lorem Ipsum has been the industry's standardn`
 
-5. Divirta-se jogando Pong2 com seus amigos!
+5. Divirta-se jogando PongShowdown com seus amigos!
 
 ## 👩‍💻 Membros
 
