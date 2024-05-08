@@ -7,7 +7,7 @@
 
 #ifndef __KEYBOARD_H__
 #define __KEYBOARD_H__
-
+#define KEY_MAX 256 
 void keyboardInit();
 
 void keyboardDestroy();

@@ -28,8 +28,11 @@ Escreva no terminal:
 #include "keyboard.h"
 #include "timer.h"
 
+
 int x = 40, y = 12;  // Posição inicial do elemento na tela (x, y)
-int incX = 1, incY = 1;  // Incrementos para mover o elemento na tela
+
+int incX = 1;
+int incY = 1;
 
 void printHello(int nextX, int nextY) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores de texto e fundo
@@ -85,7 +88,7 @@ void moverRaqueteDireitaParaBaixo() {
         printf("|"); // Imprime a raquete
         screenGotoxy(MAXX-2, raqueteDireitaY-2);
         printf(" ");
-       
+
         screenUpdate();  // Atualiza a tela
     }
 }
@@ -119,6 +122,9 @@ void moverRaqueteEsquerdaParaBaixo() {
         screenUpdate();  // Atualiza a tela
     }
 }
+
+//Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
+
 int main() {
     static int ch = 0;  // Variável para armazenar o código da tecla pressionada
 
@@ -140,13 +146,13 @@ int main() {
             ch = readch();
             if (ch == 119) {  // Se a tecla for 'W'
                 moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
-            } else if (ch == 115) {  // Se a tecla for 'S'
+            }if (ch == 115) {  // Se a tecla for 'S'
                 moverRaqueteEsquerdaParaBaixo();  // Move a raquete para baixo
             }  // Lê o caractere pressionado
 
              if (ch == 105) {  // Se a tecla for 'W'
                 moverRaqueteDireitaParaCima();  // Move a raquete para cima
-            } else if (ch == 107) {  // Se a tecla for 'S'
+            }if (ch == 107) {  // Se a tecla for 'S'
                 moverRaqueteDireitaParaBaixo();  // Move a raquete para baixo
             }  // Lê o caractere pressionado
             printKey(ch);
@@ -156,13 +162,20 @@ int main() {
 
         // Atualiza o estado do jogo
         if (timerTimeOver() == 1) {  // Verifica se o temporizador terminou
-            int newX = x + incX;  // Calcula a nova posição no eixo X
-            if (newX >= (MAXX - 1) || newX <= MINX + 1) 
-                incX = -incX;  // Inverte a direção se atingir o limite
+            int newX = x + incX; 
+            int newY = y + incY; 
+            if (newX >= (MAXX - 1) || newX <= MINX + 1) {
+            incX = -incX;  // Inverte a direção no eixo X
 
-            int newY = y + incY;  // Calcula a nova posição no eixo Y
-            if (newY >= MAXY - 1 || newY <= MINY + 1) 
-                incY = -incY;  // Inverte a direção se atingir o limite
+            //if (newX)
+    
+
+}
+
+if (newY >= MAXY - 1 || newY <= MINY + 1) {
+    incY = -incY;  // Inverte a direção no eixo Y
+    
+}
 
             printHello(newX, newY);  // Atualiza a posição do elemento
             screenUpdate();  // Atualiza a tela para mostrar mudanças
