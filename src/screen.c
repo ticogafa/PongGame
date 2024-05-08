@@ -67,8 +67,8 @@ void screenDestroy()
 
 void screenGotoxy(int x, int y)
 {
-    x = ( x<0 ? 0 : x>=MAXX ? MAXX-1 : x);
-    y = ( y<0 ? 0 : y>MAXY ? MAXY : y);
+    x = ( x<0 ? 0 : x>=MAXX ? MAXX-1 : x);//condição ? valor_se_verdadeiro : valor_se_falso
+    y = ( y<0 ? 0 : y>MAXY ? MAXY : y);//condição ? valor_se_verdadeiro : valor_se_falso
     
     printf("%s[f%s[%dB%s[%dC", ESC, ESC, y, ESC, x);
 }

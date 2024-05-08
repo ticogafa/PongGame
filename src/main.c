@@ -28,7 +28,8 @@ Escreva no terminal:
 #include "keyboard.h"
 #include "timer.h"
 
-
+int raqueteDireitaY = 10;
+int raqueteEsquerdaY=10;  // Posição inicial da raquete
 int x = 40, y = 12;  // Posição inicial do elemento na tela (x, y)
 
 int incX = 1;
@@ -42,6 +43,22 @@ void printHello(int nextX, int nextY) {
     y = nextY;  // Atualiza a posição y
     screenGotoxy(x, y);  // Move o cursor para a nova posição
     printf("o");  // Imprime um caractere na nova posição (originalmente um HelloWorld)
+}
+void printRaquetes() {
+
+    screenGotoxy(MINX+1, raqueteEsquerdaY);  // Move o cursor para a nova posição
+    printf("|");
+    screenGotoxy(MINX+1, raqueteEsquerdaY-1);
+    printf("|");
+
+    screenGotoxy(MAXX-2, raqueteDireitaY);  // Move o cursor para a nova posição
+    printf("|");
+    screenGotoxy(MAXX-2, raqueteDireitaY-1);
+    printf("|");
+
+
+    
+      // Imprime um caractere na nova posição (originalmente um HelloWorld)
 }
 
 void printKey(int ch) {
@@ -61,36 +78,58 @@ void printKey(int ch) {
         printf("%d ", readch());  // Imprime o código dos caracteres adicionais
     }
 }
-int raqueteDireitaY = 10;
-int raqueteEsquerdaY=10;  // Posição inicial da raquete
+
 
 void moverRaqueteDireitaParaCima() {
     if (raqueteDireitaY > MINY + 2) {  // Verifica se não está no limite superior
         raqueteDireitaY--;  // Move para cima
-        screenGotoxy(MAXX-2, raqueteDireitaY+2);
-        printf(" ");
-        screenGotoxy(MAXX-2, raqueteDireitaY);  // Move cursor para a posição da raquete
-        printf("|");    
-        screenGotoxy(MAXX-2, raqueteDireitaY+1);
+
+        // Corrigido para garantir que não apaga fora da tela
+        if (raqueteDireitaY - 1 >= MINY) {
+            screenGotoxy(MAXX - 2, raqueteDireitaY - 1);  // Apaga a posição acima da raquete
+            printf(" ");
+        }
+
+        // Desenha a raquete na nova posição
+        screenGotoxy(MAXX - 2, raqueteDireitaY);  // Parte superior
         printf("|");
-        
-        screenUpdate();  // Atualiza a tela
+        screenGotoxy(MAXX - 2, raqueteDireitaY + 1);  // Parte do meio
+        printf("|");
+        screenGotoxy(MAXX - 2, raqueteDireitaY + 2);  // Parte inferior
+        printf("|");
+
+        // Corrigido para evitar escrever fora da tela
+        if (raqueteDireitaY + 3 <= MAXY) {
+            screenGotoxy(MAXX - 2, raqueteDireitaY + 3);  // Apaga a posição abaixo da raquete
+            printf(" ");  
+        }
+
+        screenUpdate();  // Atualiza a tela para refletir mudanças
     }
 }
 
+
 void moverRaqueteDireitaParaBaixo() {
     if (raqueteDireitaY < MAXY - 2) {  // Verifica se não está no limite inferior
-        raqueteDireitaY++;  // Move para baixo
-
-        screenGotoxy(MAXX-2, raqueteDireitaY);  // Move cursor para a posição da raquete
-        printf("|");
-        screenGotoxy(MAXX-2, raqueteDireitaY-1);
-        printf("|"); // Imprime a raquete
-        screenGotoxy(MAXX-2, raqueteDireitaY-2);
+        raqueteDireitaY++;  // Move a raquete para baixo
+        // Limpa a posição anterior
+        screenGotoxy(MAXX - 2, raqueteDireitaY - 2);  // Apaga a parte superior da raquete
         printf(" ");
 
-        screenUpdate();  // Atualiza a tela
+        // Desenha a nova posição da raquete
+        screenGotoxy(MAXX - 2, raqueteDireitaY - 1);  // Posição superior da raquete
+        printf("|");
+        screenGotoxy(MAXX - 2, raqueteDireitaY);  // Posição do meio da raquete
+        printf("|");
+        screenGotoxy(MAXX - 2, raqueteDireitaY + 1);  // Posição inferior da raquete
+        printf("|");
+
+        screenUpdate();  // Atualiza a tela para mostrar as mudanças
     }
+        
+        screenGotoxy(24, 12);
+        printf("Raquete %d, o minY é %d, o maxy %d", raqueteDireitaY, MINY, MAXY);
+        screenUpdate();  // Atualiza a tela,
 }
 
 //Raquetes arrow up arrow down
@@ -135,6 +174,8 @@ int main() {
 
     // Desenha a posição inicial do elemento
     printHello(x, y);
+    printRaquetes();
+
     screenUpdate();  // Atualiza a tela para mostrar mudanças
 
     // Loop principal do programa
@@ -143,6 +184,7 @@ int main() {
        
         // Manipulação da entrada do usuário
         if (keyhit()) {  // Se uma tecla foi pressionada
+
             ch = readch();
             if (ch == 119) {  // Se a tecla for 'W'
                 moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
@@ -164,7 +206,7 @@ int main() {
         if (timerTimeOver() == 1) {  // Verifica se o temporizador terminou
             int newX = x + incX; 
             int newY = y + incY; 
-            if (newX >= (MAXX - 1) || newX <= MINX + 1) {
+            if (newX >= (MAXX - 2) || newX <= MINX + 1) {
             incX = -incX;  // Inverte a direção no eixo X
 
             //if (newX)
