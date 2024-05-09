@@ -205,7 +205,7 @@ int main() {
     B_player.score=0;
     cord.x=40;
     cord.y=12;
-    incX=3;
+    incX=1;
     incY=1;
     // Inicialização dos sistemas
     screenInit(1);  // Inicializa a tela, talvez com bordas
