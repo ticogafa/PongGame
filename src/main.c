@@ -22,8 +22,8 @@ Escreva no terminal:
 2.  ./PongGame
 
 */
+#include <stdlib.h>
 #include <string.h>
-
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
@@ -34,6 +34,22 @@ int x = 40, y = 12;  // Posição inicial do elemento na tela (x, y)
 
 int incX = 1;
 int incY = 1;
+
+
+void telaInicio() {
+    system("clear"); // Limpa a tela
+
+    printf("\n\n\n");
+    printf("       JOGO DO PONG\n\n");
+    printf("   Instruções:\n");
+    printf("   - Use as teclas W e S para mover a raquete esquerda\n");
+    printf("   - Use as teclas I e K para mover a raquete direita\n");
+    printf("   - Pressione qualquer tecla para começar o jogo\n\n");
+    printf("   Boa sorte!\n\n");
+
+    getchar(); // Aguarda o jogador pressionar uma tecla
+}
+
 
 void printHello(int nextX, int nextY) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores de texto e fundo
@@ -138,6 +154,9 @@ void moverRaqueteEsquerdaParaCima() {
         raqueteEsquerdaY--;  // Move para cima
         screenGotoxy(2, raqueteEsquerdaY+2); // Move cursor para a posição da raquete
         printf(" ");
+        
+        screenGotoxy(2, raqueteEsquerdaY-1);
+        printf("|");
         screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
         printf("|");
         screenGotoxy(2, raqueteEsquerdaY+1);
@@ -152,6 +171,9 @@ void moverRaqueteEsquerdaParaBaixo() {
         raqueteEsquerdaY++;  // Move para baixo
         screenGotoxy(2, raqueteEsquerdaY-2); // Move cursor para a posição da raquete
         printf(" "); 
+        
+        screenGotoxy(2,raqueteEsquerdaY+1);
+        printf("|");
         screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
         printf("|");
         screenGotoxy(2, raqueteEsquerdaY-1);
@@ -165,6 +187,7 @@ void moverRaqueteEsquerdaParaBaixo() {
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
 int main() {
+    telaInicio();
     static int ch = 0;  // Variável para armazenar o código da tecla pressionada
 
     // Inicialização dos sistemas
