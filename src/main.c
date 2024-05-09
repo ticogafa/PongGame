@@ -23,6 +23,7 @@ Escreva no terminal:
 
 */
 #include <string.h>
+#include <sys/time.h> // Para gettimeofday e struct timeval
 
 #include "screen.h"
 #include "keyboard.h"
@@ -81,8 +82,7 @@ void printRaquetes() {
 
 void printKey(int ch) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores para texto e fundo
-    screenGotoxy(MINX, MAXY+7);  // Move o cursor para a posição para imprimir o código da tecla
-    printf("Raquete Esquerda: W up S down/ Raquete Direita I up K down:");
+
 
     
 
@@ -198,12 +198,14 @@ int moverRaqueteEsquerdaParaBaixo() {
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
 int main() {
+    struct timeval startTime; // Para armazenar o tempo de início
+    gettimeofday(&startTime, NULL); // Obtemos o tempo atual para começar o cronômetro
     static int ch = 0;  // Variável para armazenar o código da tecla pressionada
     A_player.score=0;
     B_player.score=0;
     cord.x=40;
     cord.y=12;
-    incX=1;
+    incX=3;
     incY=1;
     // Inicialização dos sistemas
     screenInit(1);  // Inicializa a tela, talvez com bordas
@@ -218,7 +220,12 @@ int main() {
 
     // Loop principal do programa
     while (1) {  // Continua até que "Enter" seja pressionado
+         struct timeval currentTime; // Para capturar o tempo atual
+        gettimeofday(&currentTime, NULL); // Obtemos o tempo atual
         
+        long elapsedSeconds = currentTime.tv_sec - startTime.tv_sec; // Diferença em segundos
+        screenGotoxy(40, 3);
+        printf("%ld", elapsedSeconds);
         if(ch == 10) break;
 
         // Manipulação da entrada do usuário
@@ -240,12 +247,9 @@ int main() {
             }  // Lê o caractere pressionado
             printKey(ch);
             screenGotoxy(24, 12);
-            printf("Jogador A: %d", A_player.score);
-            screenGotoxy(24, 11);
-            printf("Jogador B: %d", B_player.score);
+
               // Mostra o código da tecla
-            screenGotoxy(40, 3);
-            timerPrint();
+
             screenUpdate();  // Atualiza a tela
         }
 
@@ -255,28 +259,33 @@ int main() {
             int newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
 
 
-            if (newX >= (MAXX - 1)) {//BATEU NA DIREITA 1 PIXEL DEPOIS DA RAQUETE
+            if (newX >= (MAXX - 1)||newX <= MINX + 1) {
                 incX=-incX;
-                A_player.score++;
-            }
-            else if(newX <= MINX + 1) {
-                //BATEU NA ESQUERDA
-            incX = -incX;
-            B_player.score++;
+                if(newX >= (MAXX - 1)) A_player.score++; //BATEU NA ESQUERDA
+
+                else if(newX <= MINX + 1) B_player.score++;//BATEU NA DIREITA
             // Inverte a direção no eixo X
             }
+            if (newY >= MAXY - 1 || newY <= MINY + 1) {
+                incY = -incY;  // Inverte a direção no eixo Y
+            }
 
-        if(cord.y>=raqueteEsquerdaY&&cord.x<=raqueteEsquerdaY+2)){//COLISÃO
-        incY=-incY;
-        incX
+            else if((newX >= raqueteEsquerdaY && newY <= raqueteEsquerdaY+2)&&newX == 2){//COLISÃO LADO ESQUERDO
+                incX=-incX;
+                incY=-incY;
+                
 
-        }
-        if (newY >= MAXY - 1 || newY <= MINY + 1) {
-        incY = -incY;  // Inverte a direção no eixo Y
-    
-}
+                }
+            else if((newX >= raqueteDireitaY && newY <= raqueteDireitaY+2)&&newX == MAXX-2){//COLISÃO LADO DIREITO
+               
+                incX=-incX;
+                incY=-incY;
 
+                }
+                
             printHello(newX, newY);  // Atualiza a posição do elemento
+            screenGotoxy(24, 4);
+            printf("X: %d Y: %d", newX, newY);
             screenUpdate();  // Atualiza a tela para mostrar mudanças
         }
     }
