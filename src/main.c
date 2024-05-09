@@ -30,19 +30,28 @@ Escreva no terminal:
 
 int raqueteDireitaY = 10;
 int raqueteEsquerdaY=10;  // Posição inicial da raquete
-int x = 40, y = 12;  // Posição inicial do elemento na tela (x, y)
 
-int incX = 1;
-int incY = 1;
+typedef struct{
+int x;
+int y;      // Posição inicial da bola na tela (x, y)
+}Cords;
+Cords cord;
 
-void printHello(int nextX, int nextY) {
+int incX;
+int incY;   
+
+
+Cords printHello(int nextX, int nextY) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores de texto e fundo
-    screenGotoxy(x, y);  // Move o cursor para a posição (x, y)
+    screenGotoxy(cord.x, cord.y);  // Move o cursor para a posição (x, y)
     printf(" ");  // Limpa o texto anterior
-    x = nextX;  // Atualiza a posição x
-    y = nextY;  // Atualiza a posição y
-    screenGotoxy(x, y);  // Move o cursor para a nova posição
+    cord.x = nextX;  // Atualiza a posição x
+    cord.y = nextY;  // Atualiza a posição y
+    screenGotoxy(cord.x, cord.y);  // Move o cursor para a nova posição
     printf("o");  // Imprime um caractere na nova posição (originalmente um HelloWorld)
+
+    return cord;
+
 }
 void printRaquetes() {
 
@@ -80,86 +89,101 @@ void printKey(int ch) {
 }
 
 
-void moverRaqueteDireitaParaCima() {
-    if (raqueteDireitaY > MINY + 2) {  // Verifica se não está no limite superior
+// Corrige a função para mover a raquete para cima sem apagar fora dos limites da tela
+int moverRaqueteDireitaParaCima() {
+    
+        if (raqueteDireitaY > MINY + 1 ) {  // Apenas apaga se não estiver na parte superior da raquete
+            screenGotoxy(MAXX - 2, raqueteDireitaY + 2);  // Apaga a o ultimo pixel da raquete
+            printf(" ");
+
+        
+        
         raqueteDireitaY--;  // Move para cima
 
-        // Corrigido para garantir que não apaga fora da tela
-        if (raqueteDireitaY - 1 >= MINY) {
-            screenGotoxy(MAXX - 2, raqueteDireitaY - 1);  // Apaga a posição acima da raquete
-            printf(" ");
-        }
-
-        // Desenha a raquete na nova posição
+        // Desenha a nova posição da raquete
         screenGotoxy(MAXX - 2, raqueteDireitaY);  // Parte superior
-        printf("|");
+        printf("Y");
         screenGotoxy(MAXX - 2, raqueteDireitaY + 1);  // Parte do meio
         printf("|");
         screenGotoxy(MAXX - 2, raqueteDireitaY + 2);  // Parte inferior
         printf("|");
 
-        // Corrigido para evitar escrever fora da tela
-        if (raqueteDireitaY + 3 <= MAXY) {
-            screenGotoxy(MAXX - 2, raqueteDireitaY + 3);  // Apaga a posição abaixo da raquete
-            printf(" ");  
-        }
-
-        screenUpdate();  // Atualiza a tela para refletir mudanças
+        screenUpdate();  // Atualiza a tela para refletir as mudanças
     }
+    return raqueteDireitaY;
 }
 
-
-void moverRaqueteDireitaParaBaixo() {
-    if (raqueteDireitaY < MAXY - 2) {  // Verifica se não está no limite inferior
-        raqueteDireitaY++;  // Move a raquete para baixo
-        // Limpa a posição anterior
-        screenGotoxy(MAXX - 2, raqueteDireitaY - 2);  // Apaga a parte superior da raquete
+// Corrige a função para mover a raquete para baixo sem apagar fora dos limites da tela
+int moverRaqueteDireitaParaBaixo() {
+    if (raqueteDireitaY < MAXY - 3) {
+          // Verifica se não está no limite inferior
+        
+        screenGotoxy(MAXX - 2, raqueteDireitaY);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");
-
+        
+        
+        raqueteDireitaY++;  // Move para baixo
+        
         // Desenha a nova posição da raquete
-        screenGotoxy(MAXX - 2, raqueteDireitaY - 1);  // Posição superior da raquete
+        screenGotoxy(MAXX - 2, raqueteDireitaY );  // Posição superior
+        printf("Y");
+        screenGotoxy(MAXX - 2, raqueteDireitaY+1);  // Posição do meio
         printf("|");
-        screenGotoxy(MAXX - 2, raqueteDireitaY);  // Posição do meio da raquete
-        printf("|");
-        screenGotoxy(MAXX - 2, raqueteDireitaY + 1);  // Posição inferior da raquete
+        screenGotoxy(MAXX - 2, raqueteDireitaY + 2);  // Posição inferior
         printf("|");
 
         screenUpdate();  // Atualiza a tela para mostrar as mudanças
-    }
-        
-        screenGotoxy(24, 12);
-        printf("Raquete %d, o minY é %d, o maxy %d", raqueteDireitaY, MINY, MAXY);
+    
+
+
         screenUpdate();  // Atualiza a tela,
+    }
+    return raqueteDireitaY;
 }
 
 //Raquetes arrow up arrow down
-void moverRaqueteEsquerdaParaCima() {
-    if (raqueteEsquerdaY > MINY + 2) {  // Verifica se não está no limite superior
-        raqueteEsquerdaY--;  // Move para cima
-        screenGotoxy(2, raqueteEsquerdaY+2); // Move cursor para a posição da raquete
+int moverRaqueteEsquerdaParaCima() {
+
+    if (raqueteEsquerdaY > MINY + 1) {// Verifica se não está no limite superior
+        screenGotoxy(2, raqueteEsquerdaY+2); //Apaga o pixel da ultima parte da raquete
         printf(" ");
-        screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
-        printf("|");
+        raqueteEsquerdaY--;  // Move para cima
+
+
+
+        screenGotoxy(2, raqueteEsquerdaY);          // Referencia do nosso Y
+        printf("Y");
         screenGotoxy(2, raqueteEsquerdaY+1);
+        printf("|");
+        screenGotoxy(2, raqueteEsquerdaY+2);
         printf("|");
 
         screenUpdate();
     }
+    return raqueteEsquerdaY;
 }
 
-void moverRaqueteEsquerdaParaBaixo() {
-    if (raqueteEsquerdaY < MAXY - 2) {  // Verifica se não está no limite inferior
-        raqueteEsquerdaY++;  // Move para baixo
-        screenGotoxy(2, raqueteEsquerdaY-2); // Move cursor para a posição da raquete
-        printf(" "); 
+int moverRaqueteEsquerdaParaBaixo() {
+    if (raqueteEsquerdaY < MAXY - 3) {// Verifica se não está no limite inferior
+
+        screenGotoxy(2, raqueteEsquerdaY); // Move cursor para a posição da raquete
+        printf(" ");
+
+        raqueteEsquerdaY++;// Move para baixo
+
+ 
         screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
-        printf("|");
-        screenGotoxy(2, raqueteEsquerdaY-1);
+        printf("Y");
+        screenGotoxy(2, raqueteEsquerdaY+1);
         printf("|");  
+        screenGotoxy(2, raqueteEsquerdaY+2);
+        printf("|");    
+
 
 
         screenUpdate();  // Atualiza a tela
     }
+    return raqueteEsquerdaY;
 }
 
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
@@ -173,7 +197,7 @@ int main() {
     timerInit(50);  // Inicializa o temporizador com 50 ms
 
     // Desenha a posição inicial do elemento
-    printHello(x, y);
+    printHello(cord.x, cord.y);
     printRaquetes();
 
     screenUpdate();  // Atualiza a tela para mostrar mudanças
@@ -187,25 +211,31 @@ int main() {
 
             ch = readch();
             if (ch == 119) {  // Se a tecla for 'W'
-                moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
+                raqueteEsquerdaY= moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
             }if (ch == 115) {  // Se a tecla for 'S'
-                moverRaqueteEsquerdaParaBaixo();  // Move a raquete para baixo
+                raqueteEsquerdaY = moverRaqueteEsquerdaParaBaixo();  // Move a raquete para baixo
             }  // Lê o caractere pressionado
 
              if (ch == 105) {  // Se a tecla for 'W'
-                moverRaqueteDireitaParaCima();  // Move a raquete para cima
+                raqueteDireitaY= moverRaqueteDireitaParaCima();  // Move a raquete para cima
+                
             }if (ch == 107) {  // Se a tecla for 'S'
-                moverRaqueteDireitaParaBaixo();  // Move a raquete para baixo
+                raqueteDireitaY= moverRaqueteDireitaParaBaixo();  // Move a raquete para baixo
             }  // Lê o caractere pressionado
             printKey(ch);
+            screenGotoxy(24, 12);
+            printf("Raquete Esquerda: %d", raqueteEsquerdaY);
+            screenGotoxy(24, 11);
+            printf("Raquete Direita: %d", raqueteDireitaY);
+
               // Mostra o código da tecla
             screenUpdate();  // Atualiza a tela
         }
 
         // Atualiza o estado do jogo
         if (timerTimeOver() == 1) {  // Verifica se o temporizador terminou
-            int newX = x + incX; 
-            int newY = y + incY; 
+            int newX = cord.x + incX; 
+            int newY = cord.y + incY; 
             if (newX >= (MAXX - 2) || newX <= MINX + 1) {
             incX = -incX;  // Inverte a direção no eixo X
 
