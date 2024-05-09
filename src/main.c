@@ -29,7 +29,16 @@ Escreva no terminal:
 #include "timer.h"
 
 int raqueteDireitaY = 10;
-int raqueteEsquerdaY=10;  // Posição inicial da raquete
+int raqueteEsquerdaY=10; 
+
+ // Posição inicial da raquete
+ typedef struct {
+    int score;
+    char name[50];
+ }Player;
+
+ Player A_player;
+ Player B_player;
 
 typedef struct{
 int x;
@@ -190,7 +199,12 @@ int moverRaqueteEsquerdaParaBaixo() {
 
 int main() {
     static int ch = 0;  // Variável para armazenar o código da tecla pressionada
-
+    A_player.score=0;
+    B_player.score=0;
+    cord.x=40;
+    cord.y=12;
+    incX=1;
+    incY=1;
     // Inicialização dos sistemas
     screenInit(1);  // Inicializa a tela, talvez com bordas
     keyboardInit();  // Inicializa configurações do teclado
@@ -203,13 +217,15 @@ int main() {
     screenUpdate();  // Atualiza a tela para mostrar mudanças
 
     // Loop principal do programa
-    while (ch != 10) {  // Continua até que "Enter" seja pressionado
+    while (1) {  // Continua até que "Enter" seja pressionado
         
-       
+        if(ch == 10) break;
+
         // Manipulação da entrada do usuário
         if (keyhit()) {  // Se uma tecla foi pressionada
 
             ch = readch();
+
             if (ch == 119) {  // Se a tecla for 'W'
                 raqueteEsquerdaY= moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
             }if (ch == 115) {  // Se a tecla for 'S'
@@ -224,28 +240,39 @@ int main() {
             }  // Lê o caractere pressionado
             printKey(ch);
             screenGotoxy(24, 12);
-            printf("Raquete Esquerda: %d", raqueteEsquerdaY);
+            printf("Jogador A: %d", A_player.score);
             screenGotoxy(24, 11);
-            printf("Raquete Direita: %d", raqueteDireitaY);
-
+            printf("Jogador B: %d", B_player.score);
               // Mostra o código da tecla
+            screenGotoxy(40, 3);
+            timerPrint();
             screenUpdate();  // Atualiza a tela
         }
 
         // Atualiza o estado do jogo
         if (timerTimeOver() == 1) {  // Verifica se o temporizador terminou
             int newX = cord.x + incX; 
-            int newY = cord.y + incY; 
-            if (newX >= (MAXX - 2) || newX <= MINX + 1) {
-            incX = -incX;  // Inverte a direção no eixo X
+            int newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
 
-            //if (newX)
-    
 
-}
+            if (newX >= (MAXX - 1)) {//BATEU NA DIREITA 1 PIXEL DEPOIS DA RAQUETE
+                incX=-incX;
+                A_player.score++;
+            }
+            else if(newX <= MINX + 1) {
+                //BATEU NA ESQUERDA
+            incX = -incX;
+            B_player.score++;
+            // Inverte a direção no eixo X
+            }
 
-if (newY >= MAXY - 1 || newY <= MINY + 1) {
-    incY = -incY;  // Inverte a direção no eixo Y
+        if(cord.y>=raqueteEsquerdaY&&cord.x<=raqueteEsquerdaY+2)){//COLISÃO
+        incY=-incY;
+        incX
+
+        }
+        if (newY >= MAXY - 1 || newY <= MINY + 1) {
+        incY = -incY;  // Inverte a direção no eixo Y
     
 }
 
