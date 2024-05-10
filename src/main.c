@@ -100,7 +100,7 @@ void printKey(int ch) {
 // Corrige a função para mover a raquete para cima sem apagar fora dos limites da tela
 int moverRaqueteDireitaParaCima() {
     
-        if (raqueteDireitaY > MINY + 4 ) {  // Apenas apaga se não estiver na parte superior da raquete
+        if (raqueteDireitaY > MINY + 2 ) {  // Apenas apaga se não estiver na parte superior da raquete
             screenGotoxy(MAXX - 2, raqueteDireitaY);  // Apaga a o ultimo pixel da raquete
             printf(" ");
             screenGotoxy(MAXX - 2, raqueteDireitaY + 1);  // Apaga a o ultimo pixel da raquete
@@ -110,11 +110,7 @@ int moverRaqueteDireitaParaCima() {
             screenGotoxy(MAXX - 2, raqueteDireitaY + 3);  // Apaga a o ultimo pixel da raquete
             printf(" ");
             
-
-
-        
-        
-        raqueteDireitaY-=3;  // Move para cima miny-4=
+        raqueteDireitaY-=2;  // Move para cima miny-4=
 
         // Desenha a nova posição da raquete
         screenGotoxy(MAXX - 2, raqueteDireitaY);  // Parte superior
@@ -132,7 +128,7 @@ int moverRaqueteDireitaParaCima() {
 
 // Corrige a função para mover a raquete para baixo sem apagar fora dos limites da tela
 int moverRaqueteDireitaParaBaixo() {
-    if (raqueteDireitaY < MAXY - 2) {
+    if (raqueteDireitaY < MAXY - 5) {
           // Verifica se não está no limite inferior
         
         screenGotoxy(MAXX - 2, raqueteDireitaY);  //Precisa apagar o primeiro pixel da raquete
@@ -144,7 +140,7 @@ int moverRaqueteDireitaParaBaixo() {
         screenGotoxy(MAXX - 2, raqueteDireitaY+3);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");        
         
-        raqueteDireitaY+=3;  // Move para baixo
+        raqueteDireitaY+=2;  // Move para baixo
         
         // Desenha a nova posição da raquete
         screenGotoxy(MAXX - 2, raqueteDireitaY );  // Posição superior
@@ -167,14 +163,16 @@ int moverRaqueteDireitaParaBaixo() {
 //Raquetes arrow up arrow down
 int moverRaqueteEsquerdaParaCima() {
 
-    if (raqueteEsquerdaY > MINY + 1) {// Verifica se não está no limite superior
-        screenGotoxy(2, raqueteEsquerdaY+2); //Apaga o pixel da ultima parte da raquete
-        printf(" ");
+    if (raqueteEsquerdaY > MINY + 2) {// Verifica se não está no limite superior
         screenGotoxy(2, raqueteEsquerdaY+1); //Apaga o pixel da ultima parte da raquete
         printf(" ");
-        screenGotoxy(2, raqueteEsquerdaY); //Apaga o pixel da ultima parte da raquete
+        screenGotoxy(2, raqueteEsquerdaY+2); //Apaga o pixel da ultima parte da raquete
         printf(" ");
-        raqueteEsquerdaY-=3;  // Move para cima
+        screenGotoxy(2, raqueteEsquerdaY+3); //Apaga o pixel da ultima parte da raquete
+        printf(" ");
+        screenGotoxy(2, raqueteEsquerdaY); //Apaga o pixel da ultima parte da raquete
+        printf(" ");        
+        raqueteEsquerdaY-=2;  // Move para cima
 
 
 
@@ -184,6 +182,8 @@ int moverRaqueteEsquerdaParaCima() {
         printf("|");
         screenGotoxy(2, raqueteEsquerdaY+2);
         printf("|");
+        screenGotoxy(2, raqueteEsquerdaY+3);
+        printf("|");        
 
         screenUpdate();
     }
@@ -191,7 +191,7 @@ int moverRaqueteEsquerdaParaCima() {
 }
 
 int moverRaqueteEsquerdaParaBaixo() {
-    if (raqueteEsquerdaY < MAXY - 3) {// Verifica se não está no limite inferior
+    if (raqueteEsquerdaY < MAXY - 5) {// Verifica se não está no limite inferior
 
         screenGotoxy(2, raqueteEsquerdaY); // Move cursor para a posição da raquete
         printf(" ");
@@ -199,9 +199,11 @@ int moverRaqueteEsquerdaParaBaixo() {
         printf(" ");
         screenGotoxy(2, raqueteEsquerdaY+2); // Move cursor para a posição da raquete
         printf(" ");
+        screenGotoxy(2, raqueteEsquerdaY+3); // Move cursor para a posição da raquete
+        printf(" ");        
 
 
-        raqueteEsquerdaY+=3;// Move para baixo 3 pixels
+        raqueteEsquerdaY+=2;// Move para baixo 3 pixels
 
  
         screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
@@ -209,7 +211,9 @@ int moverRaqueteEsquerdaParaBaixo() {
         screenGotoxy(2, raqueteEsquerdaY+1);
         printf("|");  
         screenGotoxy(2, raqueteEsquerdaY+2);
-        printf("|");    
+        printf("|");
+        screenGotoxy(2, raqueteEsquerdaY+3);
+        printf("|");               
 
 
 
@@ -248,7 +252,6 @@ int main() {
         
         long elapsedSeconds = currentTime.tv_sec - startTime.tv_sec; // Diferença em segundos
         screenGotoxy(40, 3);
-        printf("%ld", elapsedSeconds);
         if(ch == 10) break;
 
         // Manipulação da entrada do usuário
@@ -305,10 +308,14 @@ int main() {
                 incY=-incY;
 
                 }
-                
+            printf("%ld", elapsedSeconds);
+
             printHello(newX, newY);  // Atualiza a posição do elemento
             screenGotoxy(24, 4);
             printf("X: %d Y: %d", newX, newY);
+            screenGotoxy(24, 3);
+            printf("A: %d B: %d", A_player.score, B_player.score);
+
             screenUpdate();  // Atualiza a tela para mostrar mudanças
         }
     }
