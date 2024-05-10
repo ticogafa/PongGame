@@ -24,9 +24,10 @@ Escreva no terminal:
 */
 #include <stdlib.h>
 #include <string.h>
-#include <"screen.h">
+#include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
+#include <sys/time.h>
 
 int raqueteDireitaY = 10;
 int raqueteEsquerdaY=10; 
@@ -49,7 +50,7 @@ Cords cord;
 int incX = 1;
 int incY = 1;
 
-void printHello(int nextX, int nextY) {
+Cords printHello(int nextX, int nextY) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores de texto e fundo
     screenGotoxy(cord.x, cord.y);  // Move o cursor para a posição (x, y)
     printf(" ");  // Limpa o texto anterior
@@ -220,6 +221,8 @@ int moverRaqueteEsquerdaParaBaixo() {
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
 int main() {
+    struct timeval startTime; // Para armazenar o tempo de início
+    gettimeofday(&startTime, NULL); // Obtemos o tempo atual para começar o cronômetro
     static int ch = 0;  // Variável para armazenar o código da tecla pressionada
     A_player.score=0;
     B_player.score=0;
