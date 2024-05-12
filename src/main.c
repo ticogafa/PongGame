@@ -50,6 +50,24 @@ Cords cord;
 int incX = 1;
 int incY = 1;
 
+
+void telaInicio() {
+    system("clear"); // Limpa a tela
+    
+    printf("\n\n\n");
+    printf("       JOGO DO PONG\n\n");
+    printf("   Instruções:\n");
+    printf("   - Use as teclas W e S para mover a raquete esquerda\n");
+    printf("   - Use as teclas I e K para mover a raquete direita\n");
+    printf("   - Pressione qualquer tecla para começar o jogo\n\n");
+    printf("   Boa sorte!\n\n");
+
+    getchar(); // Aguarda o jogador pressionar uma tecla
+    
+    printf("Você pressionou ESC. Saindo...\n");
+
+}
+
 Cords printHello(int nextX, int nextY) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores de texto e fundo
     screenGotoxy(cord.x, cord.y);  // Move o cursor para a posição (x, y)
@@ -225,6 +243,8 @@ int moverRaqueteEsquerdaParaBaixo() {
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
 int main() {
+    telaInicio();
+
     struct timeval startTime; // Para armazenar o tempo de início
     gettimeofday(&startTime, NULL); // Obtemos o tempo atual para começar o cronômetro
     static int ch = 0;  // Variável para armazenar o código da tecla pressionada
@@ -247,7 +267,7 @@ int main() {
 
     // Loop principal do programa
     while (1) {  // Continua até que "Enter" seja pressionado
-         struct timeval currentTime; // Para capturar o tempo atual
+        struct timeval currentTime; // Para capturar o tempo atual
         gettimeofday(&currentTime, NULL); // Obtemos o tempo atual
         
         long elapsedSeconds = currentTime.tv_sec - startTime.tv_sec; // Diferença em segundos
