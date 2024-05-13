@@ -99,10 +99,6 @@ void printRaquetes() {
 
 void printKey(int ch) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores para texto e fundo
-
-
-    
-
     if (ch == 27)  // Se o código for o de "Esc", ajusta a posição
         screenGotoxy(36, 23);
     else
@@ -312,6 +308,11 @@ int main() {
                 } 
             } else if (ch == 115) {  // Se a tecla for 'S'
                 raqueteEsquerdaY = moverRaqueteEsquerdaParaBaixo();  // Move a raquete para baixo
+                if (ch == 119) {  // Se a tecla for 'W'
+                if (raqueteEsquerdaY > MINY + 1) { // Verifica se a raquete não está no limite superior
+                    raqueteEsquerdaY = moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
+                }
+                } 
             } else if (ch == 105) {  // Se a tecla for 'I'
                 raqueteDireitaY= moverRaqueteDireitaParaCima();  // Move a raquete para cima
             } else if (ch == 107) {  // Se a tecla for 'K'
