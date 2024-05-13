@@ -29,7 +29,7 @@ void screenDrawBorders()
     printf("%c", BOX_UPRIGHT);
 
     // Desenha as bordas laterais
-    for (int i = MINY + 1; i < MAXY; i++) {
+    for (int i = MINY + 1; i < MAXY; i++) { //provavelmente para colocar o sistema de pontos teremos que alterar aq
         screenGotoxy(MINX, i);
         printf("%c", vbc);
         screenGotoxy(MAXX, i);

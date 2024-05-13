@@ -149,25 +149,25 @@ int moverRaqueteDireitaParaBaixo() {
     if (raqueteDireitaY < MAXY - 5) {
           // Verifica se não está no limite inferior
         
-        screenGotoxy(MAXX - 2, raqueteDireitaY);  //Precisa apagar o primeiro pixel da raquete
-        printf(" ");
-        screenGotoxy(MAXX - 2, raqueteDireitaY+1);  //Precisa apagar o primeiro pixel da raquete
+        screenGotoxy(MAXX - 2, raqueteDireitaY+3);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");
         screenGotoxy(MAXX - 2, raqueteDireitaY+2);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");
-        screenGotoxy(MAXX - 2, raqueteDireitaY+3);  //Precisa apagar o primeiro pixel da raquete
+        screenGotoxy(MAXX - 2, raqueteDireitaY+1);  //Precisa apagar o primeiro pixel da raquete
+        printf(" ");
+        screenGotoxy(MAXX - 2, raqueteDireitaY);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");        
         
         raqueteDireitaY+=2;  // Move para baixo
         
         // Desenha a nova posição da raquete
-        screenGotoxy(MAXX - 2, raqueteDireitaY );  // Posição superior
+        screenGotoxy(MAXX - 2, raqueteDireitaY+3);  // Posição superior
         printf("Y");
-        screenGotoxy(MAXX - 2, raqueteDireitaY+1);  // Posição do meio
+        screenGotoxy(MAXX - 2, raqueteDireitaY+2);  // Posição do meio
         printf("|");
-        screenGotoxy(MAXX - 2, raqueteDireitaY + 2);  // Posição inferior
+        screenGotoxy(MAXX - 2, raqueteDireitaY + 1);  // Posição inferior
         printf("|");
-        screenGotoxy(MAXX - 2, raqueteDireitaY + 3);  // Posição inferior
+        screenGotoxy(MAXX - 2, raqueteDireitaY);  // Posição inferior
         printf("|");
         screenUpdate();  // Atualiza a tela para mostrar as mudanças
     
@@ -211,29 +211,29 @@ int moverRaqueteEsquerdaParaCima() {
 int moverRaqueteEsquerdaParaBaixo() {
     if (raqueteEsquerdaY < MAXY - 5) {// Verifica se não está no limite inferior
 
-        screenGotoxy(2, raqueteEsquerdaY); // Move cursor para a posição da raquete
-        printf(" ");
-        screenGotoxy(2, raqueteEsquerdaY+1); // Move cursor para a posição da raquete
+        screenGotoxy(2, raqueteEsquerdaY+3); // Move cursor para a posição da raquete
         printf(" ");
         screenGotoxy(2, raqueteEsquerdaY+2); // Move cursor para a posição da raquete
         printf(" ");
-        screenGotoxy(2, raqueteEsquerdaY+3); // Move cursor para a posição da raquete
+        screenGotoxy(2, raqueteEsquerdaY+1); // Move cursor para a posição da raquete
+        printf(" ");
+        screenGotoxy(2, raqueteEsquerdaY); // Move cursor para a posição da raquete
         printf(" ");        
 
 
         raqueteEsquerdaY+=2;// Move para baixo 3 pixels
 
  
-        screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
+        screenGotoxy(2, raqueteEsquerdaY+3);  // Move cursor para a posição da raquete
         printf("Y");
-        screenGotoxy(2, raqueteEsquerdaY+1);
-        printf("|");  
         screenGotoxy(2, raqueteEsquerdaY+2);
+        printf("|");  
+        screenGotoxy(2, raqueteEsquerdaY+1);
         printf("|");
-        screenGotoxy(2, raqueteEsquerdaY+3);
+        screenGotoxy(2, raqueteEsquerdaY);
         printf("|");               
 
-
+        
 
         screenUpdate();  // Atualiza a tela
     }
@@ -305,6 +305,11 @@ int main() {
 
             if (ch == 119) {  // Se a tecla for 'W'
                 raqueteEsquerdaY= moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
+                if (ch == 119) {  // Se a tecla for 'W'
+                if (raqueteEsquerdaY > MINY + 1) { // Verifica se a raquete não está no limite superior
+                    raqueteEsquerdaY = moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
+                }
+                } 
             } else if (ch == 115) {  // Se a tecla for 'S'
                 raqueteEsquerdaY = moverRaqueteEsquerdaParaBaixo();  // Move a raquete para baixo
             } else if (ch == 105) {  // Se a tecla for 'I'
