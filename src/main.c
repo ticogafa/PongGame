@@ -221,7 +221,7 @@ int moverRaqueteEsquerdaParaBaixo() {
         printf(" ");        
 
 
-        raqueteEsquerdaY+=2;// Move para baixo 3 pixels
+        raqueteEsquerdaY+=2;// Move para baixo 2 pixels
 
  
         screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
@@ -272,7 +272,7 @@ int main() {
         
         long elapsedSeconds = currentTime.tv_sec - startTime.tv_sec; // Diferença em segundos
         screenGotoxy(40, 3);
-        if(ch == 10) break;
+        if(ch == 10) break;//ENTER
 
         // Manipulação da entrada do usuário
         if (keyhit()) {  // Se uma tecla foi pressionada
@@ -285,10 +285,10 @@ int main() {
                 raqueteEsquerdaY = moverRaqueteEsquerdaParaBaixo();  // Move a raquete para baixo
             }  // Lê o caractere pressionado
 
-             if (ch == 105) {  // Se a tecla for 'W'
+             if (ch == 105) {  // Se a tecla for 'I'
                 raqueteDireitaY= moverRaqueteDireitaParaCima();  // Move a raquete para cima
                 
-            }if (ch == 107) {  // Se a tecla for 'S'
+            }if (ch == 107) {  // Se a tecla for 'K'
                 raqueteDireitaY= moverRaqueteDireitaParaBaixo();  // Move a raquete para baixo
             }  // Lê o caractere pressionado
             printKey(ch);
