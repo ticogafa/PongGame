@@ -3,12 +3,6 @@
  * Created on Aug, 23th 2023
  * Author: Tiago Barros
  * Based on "From C to C++ course - 2002"
-*/
-/**
- * main.h
- * Created on Aug, 23th 2023
- * Author: Tiago Barros
- * Based on "From C to C++ course - 2002"
  * 
  * 
  * 
@@ -99,10 +93,6 @@ void printRaquetes() {
 
 void printKey(int ch) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores para texto e fundo
-
-
-    
-
     if (ch == 27)  // Se o código for o de "Esc", ajusta a posição
         screenGotoxy(36, 23);
     else
@@ -149,25 +139,25 @@ int moverRaqueteDireitaParaBaixo() {
     if (raqueteDireitaY < MAXY - 5) {
           // Verifica se não está no limite inferior
         
-        screenGotoxy(MAXX - 2, raqueteDireitaY);  //Precisa apagar o primeiro pixel da raquete
-        printf(" ");
-        screenGotoxy(MAXX - 2, raqueteDireitaY+1);  //Precisa apagar o primeiro pixel da raquete
+        screenGotoxy(MAXX - 2, raqueteDireitaY+3);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");
         screenGotoxy(MAXX - 2, raqueteDireitaY+2);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");
-        screenGotoxy(MAXX - 2, raqueteDireitaY+3);  //Precisa apagar o primeiro pixel da raquete
+        screenGotoxy(MAXX - 2, raqueteDireitaY+1);  //Precisa apagar o primeiro pixel da raquete
+        printf(" ");
+        screenGotoxy(MAXX - 2, raqueteDireitaY);  //Precisa apagar o primeiro pixel da raquete
         printf(" ");        
         
         raqueteDireitaY+=2;  // Move para baixo
         
         // Desenha a nova posição da raquete
-        screenGotoxy(MAXX - 2, raqueteDireitaY );  // Posição superior
+        screenGotoxy(MAXX - 2, raqueteDireitaY+3);  // Posição superior
         printf("Y");
-        screenGotoxy(MAXX - 2, raqueteDireitaY+1);  // Posição do meio
+        screenGotoxy(MAXX - 2, raqueteDireitaY+2);  // Posição do meio
         printf("|");
-        screenGotoxy(MAXX - 2, raqueteDireitaY + 2);  // Posição inferior
+        screenGotoxy(MAXX - 2, raqueteDireitaY + 1);  // Posição inferior
         printf("|");
-        screenGotoxy(MAXX - 2, raqueteDireitaY + 3);  // Posição inferior
+        screenGotoxy(MAXX - 2, raqueteDireitaY);  // Posição inferior
         printf("|");
         screenUpdate();  // Atualiza a tela para mostrar as mudanças
     
@@ -211,34 +201,59 @@ int moverRaqueteEsquerdaParaCima() {
 int moverRaqueteEsquerdaParaBaixo() {
     if (raqueteEsquerdaY < MAXY - 5) {// Verifica se não está no limite inferior
 
-        screenGotoxy(2, raqueteEsquerdaY); // Move cursor para a posição da raquete
-        printf(" ");
-        screenGotoxy(2, raqueteEsquerdaY+1); // Move cursor para a posição da raquete
+        screenGotoxy(2, raqueteEsquerdaY+3); // Move cursor para a posição da raquete
         printf(" ");
         screenGotoxy(2, raqueteEsquerdaY+2); // Move cursor para a posição da raquete
         printf(" ");
-        screenGotoxy(2, raqueteEsquerdaY+3); // Move cursor para a posição da raquete
+        screenGotoxy(2, raqueteEsquerdaY+1); // Move cursor para a posição da raquete
+        printf(" ");
+        screenGotoxy(2, raqueteEsquerdaY); // Move cursor para a posição da raquete
         printf(" ");        
 
 
         raqueteEsquerdaY+=2;// Move para baixo 2 pixels
 
  
-        screenGotoxy(2, raqueteEsquerdaY);  // Move cursor para a posição da raquete
+        screenGotoxy(2, raqueteEsquerdaY+3);  // Move cursor para a posição da raquete
         printf("Y");
-        screenGotoxy(2, raqueteEsquerdaY+1);
-        printf("|");  
         screenGotoxy(2, raqueteEsquerdaY+2);
+        printf("|");  
+        screenGotoxy(2, raqueteEsquerdaY+1);
         printf("|");
-        screenGotoxy(2, raqueteEsquerdaY+3);
+        screenGotoxy(2, raqueteEsquerdaY);
         printf("|");               
 
-
+        
 
         screenUpdate();  // Atualiza a tela
     }
     return raqueteEsquerdaY;
 }
+
+void pausa(int *pausa, int *ch, int numCaracteres) {
+    if (*ch == 27) { // Se a tecla "ESC" for pressionada, alterna o estado de pausa
+        *pausa = !(*pausa);
+        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de pausa seja executada várias vezes
+    }
+    if (*pausa) {
+        screenGotoxy(10, 10);
+        printf("Jogo pausado. Pressione 'C' para continuar.");
+        screenUpdate();
+        while (*ch != 99) {  // Espera até que a tecla 'C' seja pressionada 
+            if (keyhit()) { // Verifica se alguma tecla foi pressionada
+                *ch = readch(); // Checa qual tecla foi pressionada, caso tenha sido 'C', o while é interrompido
+            }
+        }
+        *pausa = 0; // Sai da pausa ao pressionar 'C'
+        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de despausar seja executada várias vezes
+        screenGotoxy(10, 10); // Posiciona o cursor na posição onde o printf foi feito
+        for (int i = 0; i < numCaracteres; i++) {
+            printf(" "); // Sobrescreve os caracteres com espaços em branco
+        }
+        screenUpdate(); // Atualiza a tela para mostrar as mudanças
+    }
+}
+
 
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
@@ -254,6 +269,8 @@ int main() {
     cord.y=12;
     incX=1;
     incY=1;
+    int pausa_jogo=0;
+    int numCaracteres = 43;
     // Inicialização dos sistemas
     screenInit(1);  // Inicializa a tela, talvez com bordas
     keyboardInit();  // Inicializa configurações do teclado
@@ -267,21 +284,23 @@ int main() {
 
     // Loop principal do programa
     while (1) {  // Continua até que "Enter" seja pressionado
-        struct timeval currentTime; // Para capturar o tempo atual
-        gettimeofday(&currentTime, NULL); // Obtemos o tempo atual
-        
-        long elapsedSeconds = currentTime.tv_sec - startTime.tv_sec; // Diferença em segundos
+        struct timeval tempo; // Para capturar o tempo atual
+        gettimeofday(&tempo, NULL); // Obtemos o tempo atual
+        long elapsedSeconds = tempo.tv_sec - startTime.tv_sec; // Diferença em segundos
         screenGotoxy(40, 3);
-        if(ch == 10) break;//ENTER
-
+       pausa(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
         // Manipulação da entrada do usuário
-        if (keyhit()) {  // Se uma tecla foi pressionada
-
+        if (!pausa_jogo && keyhit()) {  // Se uma tecla foi pressionada e o jogo não está pausado
             ch = readch();
 
             if (ch == 119) {  // Se a tecla for 'W'
                 raqueteEsquerdaY= moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
-            }if (ch == 115) {  // Se a tecla for 'S'
+                if (ch == 119) {  // Se a tecla for 'W'
+                if (raqueteEsquerdaY > MINY + 1) { // Verifica se a raquete não está no limite superior
+                    raqueteEsquerdaY = moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
+                }
+                } 
+            } else if (ch == 115) {  // Se a tecla for 'S'
                 raqueteEsquerdaY = moverRaqueteEsquerdaParaBaixo();  // Move a raquete para baixo
             }  // Lê o caractere pressionado
 
@@ -290,45 +309,31 @@ int main() {
                 
             }if (ch == 107) {  // Se a tecla for 'K'
                 raqueteDireitaY= moverRaqueteDireitaParaBaixo();  // Move a raquete para baixo
-            }  // Lê o caractere pressionado
+            }
             printKey(ch);
-            screenGotoxy(24, 12);
-
-              // Mostra o código da tecla
-
             screenUpdate();  // Atualiza a tela
         }
 
         // Atualiza o estado do jogo
-        if (timerTimeOver() == 1) {  // Verifica se o temporizador terminou
+        if (!pausa_jogo && timerTimeOver() == 1) {  // Verifica se o temporizador terminou e o jogo não está pausado
             int newX = cord.x + incX; 
             int newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
 
-
-            if (newX >= (MAXX - 1)||newX <= MINX + 1) {
+            if (newX >= (MAXX - 1) || newX <= MINX + 1) {
                 incX=-incX;
-                if(newX >= (MAXX - 1)) A_player.score++; //BATEU NA ESQUERDA
-
-                else if(newX <= MINX + 1) B_player.score++;//BATEU NA DIREITA
-            // Inverte a direção no eixo X
+                if (newX >= (MAXX - 1)) A_player.score++; //BATEU NA ESQUERDA
+                else if (newX <= MINX + 1) B_player.score++; //BATEU NA DIREITA
             }
+
             if (newY >= MAXY - 1 || newY <= MINY + 1) {
                 incY = -incY;  // Inverte a direção no eixo Y
+            } else if ((newX >= 2 && newX <= 3) && (newY >= raqueteEsquerdaY && newY <= raqueteEsquerdaY + 2)) { //COLISÃO LADO ESQUERDO
+                incX=-incX;
+                incY=-incY;
+            } else if ((newX >= MAXX - 4 && newX <= MAXX - 3) && (newY >= raqueteDireitaY && newY <= raqueteDireitaY + 2)) { //COLISÃO LADO DIREITO
+                incX=-incX;
+                incY=-incY;
             }
-
-            else if((newX >= raqueteEsquerdaY && newY <= raqueteEsquerdaY+2)&&newX == 2){//COLISÃO LADO ESQUERDO
-                incX=-incX;
-                incY=-incY;
-                
-
-                }
-            else if((newX >= raqueteDireitaY && newY <= raqueteDireitaY+2)&&newX == MAXX-2){//COLISÃO LADO DIREITO
-               
-                incX=-incX;
-                incY=-incY;
-
-                }
-            printf("%ld", elapsedSeconds);
 
             printHello(newX, newY);  // Atualiza a posição do elemento
             screenGotoxy(24, 4);
