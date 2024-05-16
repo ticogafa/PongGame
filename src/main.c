@@ -29,7 +29,7 @@ int raqueteEsquerdaY=10;
  // Posição inicial da raquete
  typedef struct {
     int score;
-    char name[50];
+    char nome[50];
  }Player;
 
  Player A_player;
@@ -254,9 +254,9 @@ void pausa(int *pausa, int *ch, int numCaracteres) {
     }
 }
 
-void ler() {
+void ler(Player *nomes) {
   FILE *fp;
-  fp = fopen("arquivoo.txt", "r"); // Abre o arquivo em modo leitura ("r")
+  fp = fopen("pontuacao.txt", "r"); // Abre o arquivo em modo leitura ("r")
   char ch;
   
   if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
@@ -270,16 +270,15 @@ void ler() {
   }
 }
 
-void escrever()
+void escrever(Player *nomes)//pra continuar esse sistema tem que usar lista encadeada, o de leitura tbm vai ter que, pra ligar ao nome e a pontuação
 {
   FILE *fp;
-  fp = fopen("arquivoo.txt", "w");
+  fp = fopen("pontuacao.txt", "w");
   char ch;
   
   if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
     fprintf(fp, "Hello, this is a test!\n");
     fputs("Hello, this is a test!\n", fp);
-
     fseek(fp, -50, SEEK_END);  // Move o ponteiro 50 bytes a partir do final
     while ((ch = fgetc(fp)) != EOF) { // Lê e imprime a partir da posição atual até o final
       putchar(ch);
@@ -305,6 +304,27 @@ void resetar(Cords *cord, int x, int y) {
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
 int main() {
+    Player A_player;
+    Player B_player;
+     while (1) {
+        for (int i = 0; i < 4; i++) {
+            if (i == 1) {
+                printf("Digite o nome de jogador do lado A: ");
+                scanf("%s", A_player.nome);
+                ler(&A_player);
+                escrever(&A_player);
+            }
+            if (i == 2) {
+                printf("Digite o nome de jogador do lado B: ");
+                scanf("%s", B_player.nome);
+                ler(&B_player);
+                escrever(&B_player);
+            }
+            if (i == 3) {
+                break;
+            }
+        }
+    }
     telaInicio();
 
     struct timeval startTime; // Para armazenar o tempo de início
@@ -318,6 +338,8 @@ int main() {
     incY=1;
     int pausa_jogo=0;
     int numCaracteres = 43;
+    int pontuação;
+    
     // Inicialização dos sistemas
     screenInit(1);  // Inicializa a tela, talvez com bordas
     keyboardInit();  // Inicializa configurações do teclado
