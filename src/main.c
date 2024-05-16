@@ -254,6 +254,53 @@ void pausa(int *pausa, int *ch, int numCaracteres) {
     }
 }
 
+void ler() {
+  FILE *fp;
+  fp = fopen("arquivoo.txt", "r"); // Abre o arquivo em modo leitura ("r")
+  char ch;
+  
+  if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
+    while ((ch = fgetc(fp)) != EOF) { // Lê e imprime caractere por caractere
+      putchar(ch);
+    }
+
+    fclose(fp);  // Fecha o arquivo após a leitura
+  } else {
+    printf("Falha ao abrir o arquivo.\n");
+  }
+}
+
+void escrever()
+{
+  FILE *fp;
+  fp = fopen("arquivoo.txt", "w");
+  char ch;
+  
+  if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
+    fprintf(fp, "Hello, this is a test!\n");
+    fputs("Hello, this is a test!\n", fp);
+
+    fseek(fp, -50, SEEK_END);  // Move o ponteiro 50 bytes a partir do final
+    while ((ch = fgetc(fp)) != EOF) { // Lê e imprime a partir da posição atual até o final
+      putchar(ch);
+    }
+
+    fclose(fp);  // Fecha o arquivo após o uso
+  } else {
+    printf("Falha ao abrir o arquivo.\n");
+  }
+  
+}
+
+void resetar(Cords *cord, int x, int y) {
+    cord->x = x;  // Posição inicial da bola (x)
+    cord->y = y;  // Posição inicial da bola (y)
+    int incX = 1;  // Incremento inicial para movimento da bola (horizontal)
+    int incY = 1;  // Incremento inicial para movimento da bola (vertical)
+    int raqueteDireitaY = 10;  // Posição inicial da raquete direita
+    int raqueteEsquerdaY = 10;  // Posição inicial da raquete esquerda
+}
+
 
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
@@ -284,7 +331,7 @@ int main() {
 
     // Loop principal do programa
     while (1) {  // Continua até que "Enter" seja pressionado
-        struct timeval tempo; // Para capturar o tempo atual
+        struct timeval tempo ; // Para capturar o tempo atual
         gettimeofday(&tempo, NULL); // Obtemos o tempo atual
         long elapsedSeconds = tempo.tv_sec - startTime.tv_sec; // Diferença em segundos
         screenGotoxy(40, 3);
@@ -321,8 +368,16 @@ int main() {
 
             if (newX >= (MAXX - 1) || newX <= MINX + 1) {
                 incX=-incX;
-                if (newX >= (MAXX - 1)) A_player.score++; //BATEU NA ESQUERDA
-                else if (newX <= MINX + 1) B_player.score++; //BATEU NA DIREITA
+                if (newX >= (MAXX - 1)){
+                A_player.score++;//BATEU NA ESQUERDA
+                printf("GOOOLLL");//Preciso organizar melhor a mensagem e fazer aparecer por um tempo e sair, posso pausar o jogo aparece a mensagem e volta.
+                resetar(&cord, 1, 1);
+                }
+                else if (newX <= MINX + 1){
+                B_player.score++;//BATEU NA DIREITA
+                printf("GOOOLLL");
+                resetar(&cord, 1, 1);
+                } 
             }
 
             if (newY >= MAXY - 1 || newY <= MINY + 1) {
