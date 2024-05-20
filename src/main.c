@@ -27,10 +27,12 @@ int raqueteDireitaY = 10;
 int raqueteEsquerdaY=10; 
 
  // Posição inicial da raquete
- typedef struct {
-    int score;
+ typedef struct Player {
     char nome[50];
- }Player;
+    int score;
+    struct Player *next;
+} Player;
+
 
  Player A_player;
  Player B_player;
@@ -270,26 +272,35 @@ void ler(Player *nomes) {
   }
 }
 
-void escrever(Player *nomes)//pra continuar esse sistema tem que usar lista encadeada, o de leitura tbm vai ter que, pra ligar ao nome e a pontuação
-{
-  FILE *fp;
-  fp = fopen("pontuacao.txt", "w");
-  char ch;
-  
-  if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
-    fprintf(fp, "Hello, this is a test!\n");
-    fputs("Hello, this is a test!\n", fp);
-    fseek(fp, -50, SEEK_END);  // Move o ponteiro 50 bytes a partir do final
-    while ((ch = fgetc(fp)) != EOF) { // Lê e imprime a partir da posição atual até o final
-      putchar(ch);
+void escrever(Player *head) {
+    FILE *fp;
+    fp = fopen("pontuacao.txt", "w");
+    
+    if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
+        Player *current = head;
+        while (current != NULL) {
+            fprintf(fp, "Nome: %s, Pontuação: %d\n", current->nome, current->score);
+            current = current->next;
+        }
+        fclose(fp);  // Fecha o arquivo após o uso
+    } else {
+        printf("Falha ao abrir o arquivo.\n");
     }
-
-    fclose(fp);  // Fecha o arquivo após o uso
-  } else {
-    printf("Falha ao abrir o arquivo.\n");
-  }
-  
 }
+
+void adicionar_jogador(Player **head, const char *nome, int score) {
+    Player *new_player = (Player *)malloc(sizeof(Player));
+    if (new_player != NULL) {
+        snprintf(new_player->nome, sizeof(new_player->nome), "%s", nome);
+        new_player->score = score;
+        new_player->next = *head;
+        *head = new_player;
+    } else {
+        printf("Falha ao alocar memória para o novo jogador.\n");
+    }
+}
+
+
 
 void resetar(Cords *cord, int x, int y) {
     cord->x = x;  // Posição inicial da bola (x)
@@ -304,27 +315,41 @@ void resetar(Cords *cord, int x, int y) {
 //Para desenvolver a função de colisão precisamos armazenar as cordenadas X e Y atuais da raquete e inverter o movimento da bola caso ela atinga essas coordenadas (eu acho!?)
 
 int main() {
+    Player *head = NULL;
     Player A_player;
     Player B_player;
-     /*while (1) {
+
+    while (1) {
         for (int i = 0; i < 4; i++) {
             if (i == 1) {
                 printf("Digite o nome de jogador do lado A: ");
                 scanf("%s", A_player.nome);
                 ler(&A_player);
-                escrever(&A_player);
+                adicionar_jogador(&head, A_player.nome, A_player.score);
             }
             if (i == 2) {
                 printf("Digite o nome de jogador do lado B: ");
                 scanf("%s", B_player.nome);
                 ler(&B_player);
-                escrever(&B_player);
+                adicionar_jogador(&head, B_player.nome, B_player.score);
             }
             if (i == 3) {
                 break;
             }
         }
-    }*/
+        escrever(head);  // Escreve os dados dos jogadores no arquivo após cada ciclo
+
+        // Aqui você pode adicionar uma condição para sair do loop infinito
+        // Por exemplo, uma entrada do usuário para sair do loop
+    }
+
+    // Libera a memória alocada para a lista de jogadores
+    Player *current = head;
+    while (current != NULL) {
+        Player *temp = current;
+        current = current->next;
+        free(temp);
+    }
     telaInicio();
 
     struct timeval startTime; // Para armazenar o tempo de início
@@ -394,6 +419,7 @@ int main() {
                 A_player.score++;//BATEU NA ESQUERDA
                 printf("GOOOLLL");//Preciso organizar melhor a mensagem e fazer aparecer por um tempo e sair, posso pausar o jogo aparece a mensagem e volta.
                 resetar(&cord, 1, 1);
+                
                 }
                 else if (newX <= MINX + 1){
                 B_player.score++;//BATEU NA DIREITA
