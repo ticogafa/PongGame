@@ -326,18 +326,20 @@ int main() {
                 scanf("%s", A_player.nome);
                 ler(&A_player);
                 adicionar_jogador(&head, A_player.nome, A_player.score);
+                escrever(head); 
             }
             if (i == 2) {
                 printf("Digite o nome de jogador do lado B: ");
                 scanf("%s", B_player.nome);
                 ler(&B_player);
                 adicionar_jogador(&head, B_player.nome, B_player.score);
+                escrever(head); 
             }
             if (i == 3) {
                 break;
             }
         }
-        escrever(head);  // Escreve os dados dos jogadores no arquivo após cada ciclo
+         // Escreve os dados dos jogadores no arquivo após cada ciclo
         break;
         // Aqui você pode adicionar uma condição para sair do loop infinito
         // Por exemplo, uma entrada do usuário para sair do loop
