@@ -338,7 +338,7 @@ int main() {
             }
         }
         escrever(head);  // Escreve os dados dos jogadores no arquivo após cada ciclo
-
+        break;
         // Aqui você pode adicionar uma condição para sair do loop infinito
         // Por exemplo, uma entrada do usuário para sair do loop
     }
