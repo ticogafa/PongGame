@@ -306,7 +306,7 @@ void resetar(Cords *cord, int x, int y) {
 int main() {
     Player A_player;
     Player B_player;
-     while (1) {
+     /*while (1) {
         for (int i = 0; i < 4; i++) {
             if (i == 1) {
                 printf("Digite o nome de jogador do lado A: ");
@@ -324,7 +324,7 @@ int main() {
                 break;
             }
         }
-    }
+    }*/
     telaInicio();
 
     struct timeval startTime; // Para armazenar o tempo de início
