@@ -274,7 +274,7 @@ void ler(Player *nomes) {
 
 void escrever(Player *head) {
     FILE *fp;
-    fp = fopen("pontuacao.txt", "w");
+    fp = fopen("pontuacao.txt", "a");
     
     if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
         Player *current = head;
@@ -326,23 +326,22 @@ int main() {
                 scanf("%s", A_player.nome);
                 ler(&A_player);
                 adicionar_jogador(&head, A_player.nome, A_player.score);
-                escrever(head); 
+                
             }
             if (i == 2) {
                 printf("Digite o nome de jogador do lado B: ");
                 scanf("%s", B_player.nome);
-                ler(&B_player);
-                adicionar_jogador(&head, B_player.nome, B_player.score);
-                escrever(head); 
+                ler(&B_player);//le os jogadores
+                adicionar_jogador(&head, B_player.nome, B_player.score);// adiciona os jogadores ao arquivo txt pontuacao
+                
             }
             if (i == 3) {
                 break;
             }
         }
-         // Escreve os dados dos jogadores no arquivo após cada ciclo
+        escrever(head);// Escreve os dados dos jogadores no arquivo após cada ciclo
         break;
-        // Aqui você pode adicionar uma condição para sair do loop infinito
-        // Por exemplo, uma entrada do usuário para sair do loop
+        //aq posso colocar uma condição para sair e ir para o jogo
     }
 
     // Libera a memória alocada para a lista de jogadores
