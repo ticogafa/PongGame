@@ -23,6 +23,7 @@ Escreva no terminal:
 #include "timer.h"
 #include <sys/time.h>
 
+
 int raqueteDireitaY = 10;
 int raqueteEsquerdaY=10; 
 
@@ -256,6 +257,29 @@ void pausa(int *pausa, int *ch, int numCaracteres) {
     }
 }
 
+
+void pausagol(int *pausa, int *ch, int numCaracteres) {
+    pausa !=pausa;
+    if (*pausa) {
+        screenGotoxy(10, 10);
+        printf("GOOOLL! para continuar aperte C");
+        screenUpdate();
+        while (*ch != 99) {  // Espera até que a tecla 'C' seja pressionada 
+            if (keyhit()) { // Verifica se alguma tecla foi pressionada
+                *ch = readch(); // Checa qual tecla foi pressionada, caso tenha sido 'C', o while é interrompido
+            }
+        }
+        *pausa = 0; // Sai da pausa ao pressionar 'C'
+        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de despausar seja executada várias vezes
+        screenGotoxy(10, 10); // Posiciona o cursor na posição onde o printf foi feito
+        for (int i = 0; i < numCaracteres; i++) {
+            printf(" "); // Sobrescreve os caracteres com espaços em branco
+        }
+        screenUpdate(); // Atualiza a tela para mostrar as mudanças
+    }
+}
+
+
 void ler(Player *nomes) {
   FILE *fp;
   fp = fopen("pontuacao.txt", "r"); // Abre o arquivo em modo leitura ("r")
@@ -271,6 +295,32 @@ void ler(Player *nomes) {
     printf("Falha ao abrir o arquivo.\n");
   }
 }
+
+int checagem(const char *nome) {
+    FILE *fp;
+    fp = fopen("pontuacao.txt", "r"); // Abre o arquivo em modo leitura ("r")
+    char linha[100]; // Assumindo que cada linha tem no máximo 100 caracteres
+    int encontrado = 0;
+
+    if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
+        while (fgets(linha, sizeof(linha), fp) != NULL) {
+            // Remove a quebra de linha do final da linha lida
+            linha[strcspn(linha, "\n")] = '\0';
+
+            // Compara o nome lido do arquivo com o nome fornecido
+            if (strcmp(linha, nome) == 0) {
+                encontrado = 1;  // Marca como encontrado se os nomes forem iguais
+                break;  // Sai do loop se o nome for encontrado
+            }
+        }
+        fclose(fp);  // Fecha o arquivo após a leitura
+    } else {
+        printf("Falha ao abrir o arquivo.\n");
+    }
+
+    return encontrado;  // Retorna 1 se o nome foi encontrado, 0 se não
+}
+
 
 void escrever(Player *head) {
     FILE *fp;
@@ -288,17 +338,27 @@ void escrever(Player *head) {
     }
 }
 
-void adicionar_jogador(Player **head, const char *nome, int score) {
-    Player *new_player = (Player *)malloc(sizeof(Player));
-    if (new_player != NULL) {
-        snprintf(new_player->nome, sizeof(new_player->nome), "%s", nome);
-        new_player->score = score;
-        new_player->next = *head;
-        *head = new_player;
-    } else {
-        printf("Falha ao alocar memória para o novo jogador.\n");
+void adicionar_jogador(Player **head, char *nome, int score,int teste) {
+    while (1) {
+        if (checagem(nome)) {  // Verifica se o nome não existe no arquivo
+            Player *new_player = (Player *)malloc(sizeof(Player));
+            if (new_player != NULL) {
+                snprintf(new_player->nome, sizeof(new_player->nome), "%s", nome);
+                new_player->score = score;
+                new_player->next = *head;
+                *head = new_player;
+                break;
+            } else {
+                printf("Falha ao alocar memória para o novo jogador.\n");
+                break;  // Sai do loop caso haja falha na alocação de memória
+            }
+        } else {
+            printf("O nome já existe. Por favor, insira outro nome.\n");
+            break;
+        }
     }
 }
+
 
 
 
@@ -318,22 +378,25 @@ int main() {
     Player *head = NULL;
     Player A_player;
     Player B_player;
-
+    int checar;
     while (1) {
         for (int i = 0; i < 4; i++) {
             if (i == 1) {
                 printf("Digite o nome de jogador do lado A: ");
                 scanf("%s", A_player.nome);
                 ler(&A_player);
-                adicionar_jogador(&head, A_player.nome, A_player.score);
+                while(checar==1){
+                adicionar_jogador(&head, B_player.nome, B_player.score,checar);// adiciona os jogadores ao arquivo txt pontuacao
+                } 
                 
             }
             if (i == 2) {
                 printf("Digite o nome de jogador do lado B: ");
                 scanf("%s", B_player.nome);
                 ler(&B_player);//le os jogadores
-                adicionar_jogador(&head, B_player.nome, B_player.score);// adiciona os jogadores ao arquivo txt pontuacao
-                
+                while(checar==1){
+                adicionar_jogador(&head, B_player.nome, B_player.score,checar);// adiciona os jogadores ao arquivo txt pontuacao
+                }    
             }
             if (i == 3) {
                 break;
@@ -387,7 +450,9 @@ int main() {
         // Manipulação da entrada do usuário
         if (!pausa_jogo && keyhit()) {  // Se uma tecla foi pressionada e o jogo não está pausado
             ch = readch();
-
+            if(ch == 13){
+            break;
+            }
             if (ch == 119) {  // Se a tecla for 'W'
                 raqueteEsquerdaY= moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
                 if (ch == 119) {  // Se a tecla for 'W'
@@ -408,7 +473,6 @@ int main() {
             printKey(ch);
             screenUpdate();  // Atualiza a tela
         }
-
         // Atualiza o estado do jogo
         if (!pausa_jogo && timerTimeOver() == 1) {  // Verifica se o temporizador terminou e o jogo não está pausado
             int newX = cord.x + incX; 
@@ -418,14 +482,13 @@ int main() {
                 incX=-incX;
                 if (newX >= (MAXX - 1)){
                 A_player.score++;//BATEU NA ESQUERDA
-                printf("GOOOLLL");//Preciso organizar melhor a mensagem e fazer aparecer por um tempo e sair, posso pausar o jogo aparece a mensagem e volta.
-                resetar(&cord, 1, 1);
-                
+                pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
+                resetar(&cord, 1, 1);//nao ta pegando ainda
                 }
                 else if (newX <= MINX + 1){
                 B_player.score++;//BATEU NA DIREITA
-                printf("GOOOLLL");
-                resetar(&cord, 1, 1);
+                pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
+                resetar(&cord, 1, 1);//nao ta pegando ainda
                 } 
             }
 
