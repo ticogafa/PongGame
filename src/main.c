@@ -56,12 +56,14 @@ void telaInicio() {
     printf("   Instruções:\n");
     printf("   - Use as teclas W e S para mover a raquete esquerda\n");
     printf("   - Use as teclas I e K para mover a raquete direita\n");
-    printf("   - Pressione qualquer tecla para começar o jogo\n\n");
+    printf("   - Pressione qualquer tecla para começar o jogo\n");
+    printf("   - Cadastre seu nome e se divirta!!\n");
+    printf("   -Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
     printf("   Boa sorte!\n\n");
 
     getchar(); // Aguarda o jogador pressionar uma tecla
     
-    printf("Você pressionou ESC. Saindo...\n");
+    
 
 }
 
@@ -362,11 +364,9 @@ void adicionar_jogador(Player **head, char *nome, int score,int teste) {
 
 
 
-void resetar(Cords *cord, int x, int y) {
+void resetar(Cords *cord,int x,int y) {
     cord->x = x;  // Posição inicial da bola (x)
     cord->y = y;  // Posição inicial da bola (y)
-    int incX = 1;  // Incremento inicial para movimento da bola (horizontal)
-    int incY = 1;  // Incremento inicial para movimento da bola (vertical)
     int raqueteDireitaY = 10;  // Posição inicial da raquete direita
     int raqueteEsquerdaY = 10;  // Posição inicial da raquete esquerda
 }
@@ -379,6 +379,11 @@ int main() {
     Player A_player;
     Player B_player;
     int checar;
+    A_player.score=0;
+    B_player.score=0;
+    
+    telaInicio();
+    
     while (1) {
         for (int i = 0; i < 4; i++) {
             if (i == 1) {
@@ -386,7 +391,7 @@ int main() {
                 scanf("%s", A_player.nome);
                 ler(&A_player);
                 while(checar==1){
-                adicionar_jogador(&head, B_player.nome, B_player.score,checar);// adiciona os jogadores ao arquivo txt pontuacao
+                adicionar_jogador(&head, A_player.nome, A_player.score,checar);// adiciona os jogadores ao arquivo txt pontuacao
                 } 
                 
             }
@@ -414,13 +419,10 @@ int main() {
         current = current->next;
         free(temp);
     }
-    telaInicio();
-
+    
     struct timeval startTime; // Para armazenar o tempo de início
     gettimeofday(&startTime, NULL); // Obtemos o tempo atual para começar o cronômetro
     static int ch = 0;  // Variável para armazenar o código da tecla pressionada
-    A_player.score=0;
-    B_player.score=0;
     cord.x=40;
     cord.y=12;
     incX=1;
@@ -450,8 +452,8 @@ int main() {
         // Manipulação da entrada do usuário
         if (!pausa_jogo && keyhit()) {  // Se uma tecla foi pressionada e o jogo não está pausado
             ch = readch();
-            if(ch == 13){
-            break;
+            if(ch == 10){//tentativa de reiniciar o jogo com o enter
+                break;
             }
             if (ch == 119) {  // Se a tecla for 'W'
                 raqueteEsquerdaY= moverRaqueteEsquerdaParaCima();  // Move a raquete para cima
@@ -483,12 +485,12 @@ int main() {
                 if (newX >= (MAXX - 1)){
                 A_player.score++;//BATEU NA ESQUERDA
                 pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
-                resetar(&cord, 1, 1);//nao ta pegando ainda
+               
                 }
                 else if (newX <= MINX + 1){
                 B_player.score++;//BATEU NA DIREITA
                 pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
-                resetar(&cord, 1, 1);//nao ta pegando ainda
+               
                 } 
             }
 
