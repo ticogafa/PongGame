@@ -340,24 +340,27 @@ void escrever(Player *head) {
     }
 }
 
-void adicionar_jogador(Player **head, char *nome, int score,int teste) {
-    while (1) {
-        if (checagem(nome)) {  // Verifica se o nome não existe no arquivo
-            Player *new_player = (Player *)malloc(sizeof(Player));
-            if (new_player != NULL) {
-                snprintf(new_player->nome, sizeof(new_player->nome), "%s", nome);
-                new_player->score = score;
-                new_player->next = *head;
-                *head = new_player;
-                break;
-            } else {
-                printf("Falha ao alocar memória para o novo jogador.\n");
-                break;  // Sai do loop caso haja falha na alocação de memória
-            }
+void adicionar_jogador(Player **head, char *nome, int score) {
+    int flag = 0;
+    while (flag != 1) {
+    if (!checagem(nome)) {  // Verifica se o nome não existe no arquivo
+        Player *new_player = (Player *)malloc(sizeof(Player));
+        if (new_player != NULL) {
+            snprintf(new_player->nome, sizeof(new_player->nome), "%s", nome);
+            new_player->score = score;
+            new_player->next = *head;
+            *head = new_player;
+            printf("Jogador %s adicionado com sucesso!\n", nome);
+            flag = 1;
         } else {
-            printf("O nome já existe. Por favor, insira outro nome.\n");
-            break;
+            printf("Falha ao alocar memória para o novo jogador.\n");
         }
+    } 
+    else {
+        printf("O nome %s já existe. Por favor, insira outro nome.\n", nome);
+        printf("Novo nome: ");
+        scanf("%s", nome);
+    }
     }
 }
 
@@ -390,19 +393,14 @@ int main() {
                 printf("Digite o nome de jogador do lado A: ");
                 scanf("%s", A_player.nome);
                 ler(&A_player);
-                while(checar==1){
-                adicionar_jogador(&head, A_player.nome, A_player.score,checar);// adiciona os jogadores ao arquivo txt pontuacao
-                } 
-                
+                adicionar_jogador(&head, A_player.nome, A_player.score);// adiciona os jogadores ao arquivo txt pontuacao
             }
             if (i == 2) {
                 printf("Digite o nome de jogador do lado B: ");
                 scanf("%s", B_player.nome);
                 ler(&B_player);//le os jogadores
-                while(checar==1){
-                adicionar_jogador(&head, B_player.nome, B_player.score,checar);// adiciona os jogadores ao arquivo txt pontuacao
-                }    
-            }
+                adicionar_jogador(&head, B_player.nome, B_player.score);// adiciona os jogadores ao arquivo txt pontuacao
+                }
             if (i == 3) {
                 break;
             }
