@@ -331,7 +331,7 @@ void escrever(Player *head) {
     if (fp != NULL) {  // Verifica se o arquivo foi aberto com sucesso
         Player *current = head;
         while (current != NULL) {
-            fprintf(fp, "Nome: %s, Pontuação: %d\n", current->nome, current->score);
+            fprintf(fp, "%s\n %d\n", current->nome, current->score);
             current = current->next;
         }
         fclose(fp);  // Fecha o arquivo após o uso
