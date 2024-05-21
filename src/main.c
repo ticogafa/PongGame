@@ -282,7 +282,7 @@ void pausagol(int *pausa, int *ch, int numCaracteres) {
 }
 
 
-void ler(Player *nomes) {
+void ler_arquivo(Player *nomes) {
   FILE *fp;
   fp = fopen("pontuacao.txt", "r"); // Abre o arquivo em modo leitura ("r")
   char ch;
@@ -298,7 +298,7 @@ void ler(Player *nomes) {
   }
 }
 
-int checagem(const char *nome) {
+int checagem_alfabetica(const char *nome) {
     FILE *fp;
     fp = fopen("pontuacao.txt", "r"); // Abre o arquivo em modo leitura ("r")
     char linha[100]; // Assumindo que cada linha tem no máximo 100 caracteres
@@ -324,7 +324,7 @@ int checagem(const char *nome) {
 }
 
 
-void escrever(Player *head) {
+void escrever_no_arquivo(Player *head) {
     FILE *fp;
     fp = fopen("pontuacao.txt", "a");
     
