@@ -51,5 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+#mantém a pontuação local
+pontuacao.txt
 
 .vscode
