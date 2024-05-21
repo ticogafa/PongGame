@@ -22,7 +22,7 @@ Escreva no terminal:
 #include "keyboard.h"
 #include "timer.h"
 #include <sys/time.h>
-
+#include <unistd.h> // Para usar a função sleep
 
 int raqueteDireitaY = 10;
 int raqueteEsquerdaY=10; 
@@ -446,6 +446,8 @@ int main() {
         gettimeofday(&tempo, NULL); // Obtemos o tempo atual
         long elapsedSeconds = tempo.tv_sec - startTime.tv_sec; // Diferença em segundos
         screenGotoxy(40, 3);
+       printf("Tempo: %02ld:%02ld:%02ld\n", elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60);//funcao que printa o tempo na tela
+       // Espera um segundo antes de atualizar novamente
        pausa(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
         // Manipulação da entrada do usuário
         if (!pausa_jogo && keyhit()) {  // Se uma tecla foi pressionada e o jogo não está pausado
