@@ -384,6 +384,7 @@ int main() {
     int checar;
     A_player.score=0;
     B_player.score=0;
+    int pontos;
     
     telaInicio();
     
@@ -484,12 +485,22 @@ int main() {
                 incX=-incX;
                 if (newX >= (MAXX - 1)){
                 A_player.score++;//BATEU NA ESQUERDA
-                pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
+                if(A_player.score==3){
+                    printf("             Jogador A (lado direito) ganhou parabéns!!\n");
+                    fflush(stdout);//por algum motivo precisou disso para printar, isso força o printf a sair
+                    sleep(5);
+                    break;
+                }
+                pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo nao ta funcionando
                
                 }
                 else if (newX <= MINX + 1){
                 B_player.score++;//BATEU NA DIREITA
-                pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo
+                if(B_player.score==3){
+                  printf("Jogador B (lado esquerdo) ganhou parabéns!!");
+                  break; 
+                }
+                pausagol(&pausa_jogo, &ch, numCaracteres);//função para pausar o jogo nao ta funcionando
                
                 } 
             }
