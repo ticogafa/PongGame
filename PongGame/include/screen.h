@@ -52,6 +52,10 @@
 #define MINY           1      // min screen vertical pos
 #define MAXX           80     // max screen horizontal pos
 #define MAXY           28  // max screen vertical pos
+
+#define RAQUETE_DISTANCE       2
+
+
 /**
  * Screen Colors type
 */
@@ -162,6 +166,7 @@ void screenInit(int drawBorders);
 */
 void screenDestroy();
 
+void screenDrawBorders();
 /**
  * Move cursor to position (x,y)
  * @param x x position
