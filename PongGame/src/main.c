@@ -37,7 +37,7 @@ Cords cord;
 int raquete_direitaY = 10, raquete_esquerdaY = 10, incX = 2, incY = 1;
 
 void telaInicio() {
-    system("clear"); // Limpa a tela
+    
     
     printf("\n\n\n");
     printf("       JOGO DO PONG\n\n");
@@ -49,7 +49,7 @@ void telaInicio() {
     printf("   Boa sorte!\n\n");
     
     printf("   1. Começar um jogo\n");
-    printf("   2. Ver os topscores\n");
+    printf("   2. Ranking dos jogadores\n");
     printf("   3. Sair do programa\n");
     printf("\n   Escolha uma opção: ");
 }
