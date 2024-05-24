@@ -113,6 +113,9 @@ void resetar(Cords *cord, int Defaultx, int Defaulty) {
 int main() {
     char j1[MAX_NOME], j2[MAX_NOME];
     int escolha = 0;
+    Player jogadores[MAX_JOGADORES];
+    int total_jogadores = 0;
+
 
     while (escolha != 3) {
         telaInicio();
@@ -220,7 +223,9 @@ int main() {
                 break;
             case 2:
                 // Exibir topscores
-                exibir_topscores();
+                carregar_score(jogadores, &total_jogadores);
+                qsort(jogadores, total_jogadores, sizeof(Player), comparar_jogadores);
+                imprimir_score(jogadores, total_jogadores);
                 break;
             case 3:
                 // Sair do programa

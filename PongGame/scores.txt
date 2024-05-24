@@ -1,2 +1,5 @@
 a 317
 b 316
+miguel 10
+araujo 5
+gui 3
