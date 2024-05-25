@@ -43,15 +43,16 @@
 #define BOX_DOT        0x7E
 
 // screen constants
-#define SCRSTARTX      3      // Initial and final screen positions for the game
-#define SCRENDX        75     // It means the area that can be drawn 
-#define SCRSTARTY      1
-#define SCRENDY        23
+#define SCRSTARTX      1      // Posição inicial da tela no eixo X
+#define SCRENDX        81     // Posição final da tela no eixo X (SCRSTARTX + 80)
+#define SCRSTARTY      1      // Posição inicial da tela no eixo Y
+#define SCRENDY        29     // Posição final da tela no eixo Y (SCRSTARTY + 28)
 
-#define MINX           1      // min screen horizontal pos
-#define MINY           1      // min screen vertical pos
-#define MAXX           80     // max screen horizontal pos
-#define MAXY           28  // max screen vertical pos
+#define MINX           1      // Posição mínima no eixo X para varrer (SCRSTARTX)
+#define MINY           1      // Posição mínima no eixo Y para varrer (SCRSTARTY)
+#define MAXX           80     // Posição máxima no eixo X para varrer (SCRSTARTX + 80 - 1)
+#define MAXY           28     // Posição máxima no eixo Y para varrer (SCRSTARTY + 28 - 1)
+
 
 #define RAQUETE_DISTANCE       2
 

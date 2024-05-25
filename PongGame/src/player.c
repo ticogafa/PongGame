@@ -15,8 +15,8 @@ void atualizar_gols(Player *jogador, int gols) {
 }
 
 void exibir_pontuacao(Player *jogador) {
-    printf("%s\n", jogador->nome);
-    printf("Score: %d", jogador->gols);
+
+    printf("%s Gols %d\n", jogador->nome, jogador->gols);
 }
 
 void salvar_score(Player jogadores[]) {

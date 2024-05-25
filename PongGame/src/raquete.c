@@ -9,25 +9,25 @@ int raqueteE_up(int raquete_esquerdaY) {
 
     if (raquete_esquerdaY > MINY + 2) {// Verifica se não está no limite superior
 
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY); //Apaga o pixel da ultima parte da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY); //Apaga o pixel da ultima parte da raquete
         printf(" ");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+1); //Apaga o pixel da ultima parte da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+1); //Apaga o pixel da ultima parte da raquete
         printf(" ");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+2); //Apaga o pixel da ultima parte da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+2); //Apaga o pixel da ultima parte da raquete
         printf(" ");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+3); //Apaga o pixel da ultima parte da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3); //Apaga o pixel da ultima parte da raquete
         printf(" ");        
         raquete_esquerdaY=raquete_esquerdaY-2;  // Move para cima
 
 
 
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY);// Referencia do nosso Y
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);// Referencia do nosso Y
         printf("Y");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+1);
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+1);
         printf("|");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+2);
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+2);
         printf("|");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+3);
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3);
         printf("|");        
 
         screenUpdate();
@@ -38,26 +38,26 @@ int raqueteE_up(int raquete_esquerdaY) {
 int raqueteE_down(int raquete_esquerdaY) {
     if (raquete_esquerdaY < MAXY - 5) {// Verifica se não está no limite inferior
 
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+3); // Move cursor para a posição da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3); // Move cursor para a posição da raquete
         printf(" ");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+2); // Move cursor para a posição da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+2); // Move cursor para a posição da raquete
         printf(" ");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+1); // Move cursor para a posição da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+1); // Move cursor para a posição da raquete
         printf(" ");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY); // Move cursor para a posição da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY); // Move cursor para a posição da raquete
         printf(" ");        
 
 
         raquete_esquerdaY+=2;// Move para baixo 2 pixels
 
  
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY);  // Move cursor para a posição da raquete
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);  // Move cursor para a posição da raquete
         printf("Y");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+1);
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+1);
         printf("|");  
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+2);
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+2);
         printf("|");
-        screenGotoxy(RAQUETE_DISTANCE, raquete_esquerdaY+3);
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3);
         printf("|");               
 
         

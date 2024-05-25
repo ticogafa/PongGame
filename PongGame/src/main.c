@@ -34,10 +34,9 @@ typedef struct {
 
 Cords cord;
 
-int raquete_direitaY = 10, raquete_esquerdaY = 10, incX = 2, incY = 1;
+int raquete_direitaY = 10, raquete_esquerdaY = 10, incX = 1, incY = 1;
 
 void telaInicio() {
-    
     
     printf("\n\n\n");
     printf("       JOGO DO PONG\n\n");
@@ -165,8 +164,8 @@ int main() {
                         if (ch == 10) { // ENTER
                             break;
                         }
-                        if (ch == 119) {  // Se a tecla for 'W'
-                            raquete_esquerdaY = raqueteE_up(raquete_esquerdaY);  // Move a raquete para cima
+                        if (ch == 119) {  // 'W'
+                            raquete_esquerdaY = raqueteE_up(raquete_esquerdaY);  
                         }
                         if (ch == 115) { //'S'
                             raquete_esquerdaY = raqueteE_down(raquete_esquerdaY);
@@ -183,7 +182,7 @@ int main() {
                     }
 
                     // Atualiza o estado do jogo
-                    if (!pausa_jogo && timerTimeOver() == 1) {  // Verifica se o temporizador terminou e o jogo não está pausado
+                    if (!pausa_jogo && timerTimeOver() == 1) {  
                         int newX = cord.x + incX;
                         int newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
 
@@ -195,19 +194,24 @@ int main() {
                             atualizar_gols(&jogadores[1], 1);  // Gol do jogador 2
                             incX = -incX;
 
-                        } else if (newX == RAQUETE_DISTANCE && (newY >= raquete_esquerdaY && newY <= raquete_esquerdaY + 3)) { // Colisão lado esquerdo
+                        } else if (newX == RAQUETE_DISTANCE+1 && (newY == raquete_esquerdaY || newY == raquete_esquerdaY + 1|| newY == raquete_esquerdaY + 2|| newY == raquete_esquerdaY + 3)) { // Colisão raquete lado esquerdo
                             incX = -incX;
 
-                        } else if (newX == MAXX - RAQUETE_DISTANCE && (newY >= raquete_direitaY && newY <= raquete_direitaY + 3)) { // Colisão lado direito
+                        } else if (newX == MAXX - (RAQUETE_DISTANCE+1) && (newY == raquete_direitaY ||newY == raquete_direitaY+1 || newY == raquete_direitaY+2 ||newY == raquete_direitaY+3)) { // Colisão raquete lado direito
                             incX = -incX;
                         }
 
                         if (newY >= MAXY - 1 || newY <= MINY + 1) {
                             incY = -incY;  // Inverte a direção no eixo Y se bater em cima
                         }
-                        printHello(newX, newY);  // Atualiza a posição do elemento
-                        screenGotoxy(24, 3);
+                        printHello(newX, newY);  // Atualiza a posição da bola
+                        screenGotoxy(24, 12);
+                        printf("X:%d Y%d", newX, newY);
+
+                        screenGotoxy(3, 3);
                         exibir_pontuacao(&jogadores[0]);
+                        screenGotoxy(MAXX-10, 3);
+
                         exibir_pontuacao(&jogadores[1]);
 
                         screenUpdate();

@@ -81,8 +81,8 @@ void screenDestroy()
 void screenGotoxy(int x, int y)
 {
     // Limita as coordenadas dentro dos limites da tela
-    x = (x < 0 ? 0 : x >= MAXX ? MAXX - 1 : x);
-    y = (y < 0 ? 0 : y >= MAXY ? MAXY - 1 : y);
+    //x = (x < 0 ? 0 : x >= MAXX ? MAXX - 1 : x);
+    //y = (y < 0 ? 0 : y >= MAXY ? MAXY - 1 : y);
 
     // Move o cursor para a posição (x, y)
     printf("%s[f%s[%dB%s[%dC", ESC, ESC, y, ESC, x);
