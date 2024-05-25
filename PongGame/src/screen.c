@@ -6,7 +6,8 @@
 */
 
 #include "screen.h"
-
+#include "player.h"
+#include "keyboard.h"
 // Função que desenha as bordas da tela
 void screenDrawBorders() 
 {
@@ -101,3 +102,76 @@ void screenSetColor(screenColor fg, screenColor bg)
     printf("%s%s%d;%dm", ESC, atr, fg + 30, bg + 40);
 }
 
+
+
+
+void pausa_tela(int *pausa, int *ch) {
+    if (*ch == 27) { // Se a tecla "ESC" for pressionada, alterna o estado de pausa
+        *pausa = !(*pausa);
+        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de pausa seja executada várias vezes
+    }
+    if (*pausa) {
+        screenGotoxy(10, 10);
+        printf("Jogo pausado. Pressione 'C' para continuar.");
+        screenUpdate();
+        while (*ch != 99) {  // 'C' 
+            if (keyhit()) { // Verifica se alguma tecla foi pressionada
+                *ch = readch(); 
+            }
+        }
+        *pausa = 0; 
+        *ch = 0; 
+        screenGotoxy(10, 10); 
+        
+        printf("                                            "); // Sobrescreve os caracteres com espaços em branco
+        
+        screenUpdate(); 
+    }
+}
+void pausa_gol(int *pausa, int *ch, Player *jogador) {
+   
+        *pausa = !(*pausa);
+        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de pausa seja executada várias vezes
+    
+    if (*pausa) {
+        screenGotoxy(10, 10);
+        printf("Gol do Jogador %s!!! Pressione 'C' para continuar.", jogador->nome);
+        screenUpdate();
+        while (*ch != 99) {  // 'C' 
+            if (keyhit()) { // Verifica se alguma tecla foi pressionada
+                *ch = readch(); 
+            }
+        }
+        *pausa = 0; 
+        *ch = 0; 
+        screenGotoxy(10, 10); 
+        
+        printf("                                                               "); // Sobrescreve os caracteres com espaços em branco
+        
+        screenUpdate();
+    }
+}
+
+void resetar(int *newX, int *newY) {
+    *newX=MAXX/2;
+    *newY=MAXY/2;
+    
+}
+
+
+void telaInicio() {
+    
+    printf("\n\n\n");
+    printf("       JOGO DO PONG\n\n");
+    printf("   Instruções:\n");
+    printf("   - teclas W e S movem a raquete esquerda\n");
+    printf("   - teclas I e K movem a raquete direita\n");
+    printf("   - Cadastre seu nome e se divirta!!\n");
+    printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
+    printf("   Boa sorte!\n\n");
+    
+    printf("   1. Começar um jogo\n");
+    printf("   2. Ranking dos jogadores\n");
+    printf("   3. Sair do programa\n");
+    printf("\n   Escolha uma opção: ");
+}

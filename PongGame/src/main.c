@@ -34,24 +34,12 @@ typedef struct {
 
 Cords cord;
 
-int raquete_direitaY = 10, raquete_esquerdaY = 10, incX = 1, incY = 1;
+int
+raquete_direitaY = 10,
+raquete_esquerdaY = 10,
+incX = 1,
+incY = 1;
 
-void telaInicio() {
-    
-    printf("\n\n\n");
-    printf("       JOGO DO PONG\n\n");
-    printf("   Instruções:\n");
-    printf("   - teclas W e S movem a raquete esquerda\n");
-    printf("   - teclas I e K movem a raquete direita\n");
-    printf("   - Cadastre seu nome e se divirta!!\n");
-    printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
-    printf("   Boa sorte!\n\n");
-    
-    printf("   1. Começar um jogo\n");
-    printf("   2. Ranking dos jogadores\n");
-    printf("   3. Sair do programa\n");
-    printf("\n   Escolha uma opção: ");
-}
 
 Cords printHello(int nextX, int nextY) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores de texto e fundo
@@ -78,35 +66,6 @@ void printKey(int ch) {
     }
 }
 
-void pausa_tela(int *pausa, int *ch) {
-    if (*ch == 27) { // Se a tecla "ESC" for pressionada, alterna o estado de pausa
-        *pausa = !(*pausa);
-        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de pausa seja executada várias vezes
-    }
-    if (*pausa) {
-        screenGotoxy(10, 10);
-        printf("Jogo pausado. Pressione 'C' para continuar.");
-        screenUpdate();
-        while (*ch != 99) {  // 'C' 
-            if (keyhit()) { // Verifica se alguma tecla foi pressionada
-                *ch = readch(); 
-            }
-        }
-        *pausa = 0; 
-        *ch = 0; 
-        screenGotoxy(10, 10); 
-        
-        printf("                                            "); // Sobrescreve os caracteres com espaços em branco
-        
-        screenUpdate(); 
-    }
-}
-
-void resetar(Cords *cord, int Defaultx, int Defaulty) {
-    printHello(Defaultx, Defaulty);
-    incX = 2;
-    incY = 1;
-}
 
 
 int main() {
@@ -126,10 +85,15 @@ int main() {
                 // Inicializar jogo
                 printf("Digite o nome do primeiro jogador: ");
                 scanf("%s", j1);
-                inicializar_jogador(&jogadores[0], j1);
+                if (!inicializar_jogador(jogadores, total_jogadores, &jogadores[0], j1)) {
+                    break; 
+                }
+
                 printf("Digite o nome do segundo jogador: ");
                 scanf("%s", j2);
-                inicializar_jogador(&jogadores[1], j2);
+                if (!inicializar_jogador(jogadores, total_jogadores, &jogadores[1], j2)) {
+                    break; 
+                }
 
                 struct timeval tempo;
                 struct timeval startTime;
@@ -140,25 +104,28 @@ int main() {
                 cord.x = 40;
                 cord.y = 12;
                 int pausa_jogo = 0;
+                int pausa_score=0;
 
                 // Inicialização dos sistemas
                 screenInit(1);  // Inicializa a tela
                 keyboardInit();  // Inicializa configurações do teclado
                 timerInit(50);  // Inicializa o temporizador com 50 ms
 
-                printHello(cord.x, cord.y);
 
                 screenUpdate();
 
                 while (1) {
                     gettimeofday(&tempo, NULL);
-                    long segundos = tempo.tv_sec - startTime.tv_sec; // Diferença em segundos
-                    screenGotoxy(40, 3);
-                    printf("Tempo: %02ld\n", segundos % 60);
+                     
+                     // Diferença em segundos
+                    
+                    
 
                     if (!pausa_jogo && keyhit()) {
                         ch = readch();
 
+
+                        
                         pausa_tela(&pausa_jogo, &ch); //Deixa a função em standby
 
                         if (ch == 10) { // ENTER
@@ -183,21 +150,31 @@ int main() {
 
                     // Atualiza o estado do jogo
                     if (!pausa_jogo && timerTimeOver() == 1) {  
+                    long segundos = tempo.tv_sec - startTime.tv_sec;
+                    screenGotoxy(40, 3); 
+                    printf("Tempo: %ld\n", GAME_TIME-segundos);
+                    //if(GAME_TIME-segundos<=0) break; //Temporizador 60s 
+                    
+
                         int newX = cord.x + incX;
                         int newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
 
                         if (newX >= (MAXX - 1)) { // Bateu na direita
                             atualizar_gols(&jogadores[0], 1);  // Gol do jogador 1
+                            pausa_gol(&pausa_jogo, &ch, &jogadores[0]);
+                            resetar(&newX, &newY);
                             incX = -incX;
 
-                        } else if (newX <= MINX + 1) { // Bateu na esquerda
+                        }  if (newX <= MINX + 1) { // Bateu na esquerda
                             atualizar_gols(&jogadores[1], 1);  // Gol do jogador 2
+                            pausa_gol(&pausa_jogo, &ch, &jogadores[1]);
+                            resetar(&newX,&newY);
                             incX = -incX;
 
-                        } else if (newX == RAQUETE_DISTANCE+2 && (newY == raquete_esquerdaY || newY == raquete_esquerdaY + 1|| newY == raquete_esquerdaY + 2|| newY == raquete_esquerdaY + 3)) { // Colisão raquete lado esquerdo
+                        }  if (newX == RAQUETE_DISTANCE+2 && (newY == raquete_esquerdaY || newY == raquete_esquerdaY + 1|| newY == raquete_esquerdaY + 2|| newY == raquete_esquerdaY + 3)) { // Colisão raquete lado esquerdo
                             incX = -incX;
 
-                        } else if (newX == MAXX - (RAQUETE_DISTANCE+1) && (newY == raquete_direitaY ||newY == raquete_direitaY+1 || newY == raquete_direitaY+2 ||newY == raquete_direitaY+3)) { // Colisão raquete lado direito
+                        }  if (newX == MAXX - (RAQUETE_DISTANCE+1) && (newY == raquete_direitaY ||newY == raquete_direitaY+1 || newY == raquete_direitaY+2 ||newY == raquete_direitaY+3)) { // Colisão raquete lado direito
                             incX = -incX;
                         }
 
@@ -236,6 +213,7 @@ int main() {
                 printf("Saindo do programa...\n");
                 break;
             default:
+                system("clear");
                 printf("Opção inválida. Tente novamente.\n");
         }
     }

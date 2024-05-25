@@ -10,6 +10,7 @@
 #define __SCREEN_H__
 
 #include <stdio.h>
+#include "player.h"
 
 // Terminal control sequences
 #define ESC            "\033"
@@ -53,7 +54,7 @@
 #define MAXX           80     // Posição máxima no eixo X para varrer (SCRSTARTX + 80 - 1)
 #define MAXY           28     // Posição máxima no eixo Y para varrer (SCRSTARTY + 28 - 1)
 
-
+#define GAME_TIME 60
 #define RAQUETE_DISTANCE       2
 
 
@@ -162,6 +163,7 @@ static inline void screenBoxDisable()
 */
 void screenInit(int drawBorders);
 
+
 /**
  * Clear the screen and restores to initial state.
 */
@@ -182,5 +184,18 @@ void screenGotoxy(int x, int y);
  * @param bg background color, can assume values from BLACK to LIGHTGRAY
 */
 void screenSetColor(screenColor fg, screenColor bg);
+
+
+void pausa_tela(int *pausa, int *ch);
+
+void pausa_gol(int *pausa, int *ch, Player *jogador);
+
+void resetar(int *newX, int *newY);
+
+void telaInicio();
+
+
+
+
 
 #endif /* __SCREEN_H__ */

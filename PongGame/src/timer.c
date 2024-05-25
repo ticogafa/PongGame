@@ -46,3 +46,17 @@ int timerTimeOver() {
 void timerPrint() {
     printf("Timer: %d", getTimeDiff());  // Imprime a diferença de tempo em milissegundos
 }
+
+struct timeval currentTime;
+
+long countdown(struct timeval startTime){
+gettimeofday(&currentTime, NULL);
+
+long segundos = currentTime.tv_sec - startTime.tv_sec;
+
+
+return segundos;
+}
+
+
+                

@@ -3,11 +3,53 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 // Definição da estrutura
 
-void inicializar_jogador(Player *jogador, const char *nome) {
-    strcpy(jogador->nome, nome);
-    jogador->gols = 0;
+void carregar_jogadores(Player jogadores[], int *total_jogadores) {
+    FILE *file = fopen(ARQUIVO, "r");
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo para leitura");
+        *total_jogadores = 0;
+        return;
+    }
+
+    *total_jogadores = 0;
+    while (fscanf(file, "%s %d", jogadores[*total_jogadores].nome, &jogadores[*total_jogadores].gols) == 2) {
+        (*total_jogadores)++;
+    }
+
+    fclose(file);
+}
+
+// Função para inicializar um jogador
+int inicializar_jogador(Player jogadores[], int total_jogadores, Player *novo_jogador, const char *nome) {
+    // Carregar jogadores do arquivo
+    Player jogadores_arquivo[MAX_JOGADORES];
+    int total_jogadores_arquivo = 0;
+    carregar_jogadores(jogadores_arquivo, &total_jogadores_arquivo);
+
+    // Verificar se já existe um jogador com o mesmo nome no arquivo
+    for (int i = 0; i < total_jogadores_arquivo; i++) {
+        if (strcmp(jogadores_arquivo[i].nome, nome) == 0) {
+            system("clear");
+            printf("Erro: Já existe um jogador com o nome '%s' no arquivo.\n", nome);
+            return 0; 
+        }
+    }
+
+    // Verificar se já existe um jogador com o mesmo nome na lista atual
+    for (int i = 0; i < total_jogadores; i++) {
+        if (strcmp(jogadores[i].nome, nome) == 0) {
+            system("clear");
+            printf("Erro: Já existe um jogador com o nome '%s'.\n", nome);
+            return 0; 
+        }
+    }
+
+    strcpy(novo_jogador->nome, nome);
+    novo_jogador->gols = 0;
+    return 1; 
 }
 
 void atualizar_gols(Player *jogador, int gols) {

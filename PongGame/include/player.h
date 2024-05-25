@@ -11,7 +11,7 @@ typedef struct {
 } Player;
 
 
-void inicializar_jogador(Player *jogador, const char *nome);
+int inicializar_jogador(Player jogadores[], int total_jogadores, Player *novo_jogador, const char *nome);
 
 void atualizar_gols(Player *jogador, int gols);
 
@@ -26,4 +26,7 @@ int comparar_jogadores(const void *a, const void *b);
 void imprimir_score(Player jogadores[], int total_jogadores);
 
 void carregar_score(Player jogadores[], int *total_jogadores);
+
+
+
 #endif 
