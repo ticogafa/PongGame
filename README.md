@@ -22,7 +22,7 @@
     ><img
       src="https://img.shields.io/github/license/Sofia-Saraiva/Semester3-CESAR-School"
       alt="License"
-  /></a>t
+  /></a>
 </p>
 
 ## 🖥️ PongShowdown
@@ -36,20 +36,13 @@ O Pong é um dos primeiros jogos eletrônicos de todos os tempos, lançado em 19
 O objetivo do Pong é rebater a bola de modo que ela ultrapasse a raquete do adversário, marcando pontos quando isso acontece. Ao mesmo tempo, os jogadores precisam evitar que a bola passe pela sua própria raquete. O primeiro jogador a atingir um determinado número de pontos ganha a partida. A jogabilidade exige precisão, timing e reflexos rápidos para conseguir vencer.
 
 ### 🤠 Duelos do Velho Oeste
-O nosso novo recurso será a troca das raquetes por cowboys e a bola por munição, o objetivo será acertar o outro jogador.
-
-
-### 👾 Pontuação Duplicada:
-Lorem Ipsum has been the industry's standard
-
-### ⚡️ Alta Velocidade:
-Lorem Ipsum has been the industry's standard
+O nosso novo recurso será que as raquetes podem disparar e implementamos tiros como forma alternativa de pontuação, o objetivo será acertar o outro jogador.
 
 ## 🕹️ Como Jogar
 
-- Jogador 1 pode usar W e S controlar as raquetes do lado esquerdo
- -Jogador 2 pode usar as teclas de seta para cima e para baixo para controlar as raquetes do lado direio.
-- Certifique-se de manter o caps lock desativado.
+- Jogador 1 pode usar "W" e "S" controlar as raquetes do lado esquerdo
+ -Jogador 2 pode usar as teclas "I" e "J" para controlar as raquetes do lado direito.
+- Certifique-se de manter o Caps Lock desativado.
 - Mantenha suas raquetes em movimento para acertar as bolas e marcar pontos.
 
 ## ♟️ Executando o Jogo
@@ -57,13 +50,12 @@ Lorem Ipsum has been the industry's standard
 Para executar o PongShowdown, siga estas etapas:
 
 1. Clone este repositório em sua máquina:
-   `Lorem Ipsum has been the industry's standard`
 
-3. Compile o programa:
-   `Lorem Ipsum has been the industry's standard`
+git clone https://github.com/MigueldsBatista/PongGame.git
 
-4. Rode o programa:
-   `Lorem Ipsum has been the industry's standardn`
+3. Compile e execute o programa:
+
+Execute o comando ./exec.sh
 
 5. Divirta-se jogando PongShowdown com seus amigos!
 
@@ -87,4 +79,4 @@ Para executar o PongShowdown, siga estas etapas:
 
 ## Licença
 
-Lorem Ipsum has been the industry's standard
+<a href="https://github.com/MigueldsBatista/PongGame/blob/main/LICENSE">License</a>
