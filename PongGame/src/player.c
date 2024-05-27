@@ -6,7 +6,14 @@
 
 // Definição da estrutura
 
-void carregar_jogadores(Player jogadores[], int *total_jogadores) {
+typedef struct Node {
+    Player jogador;
+    struct Node *prox;
+} Node;
+
+
+// Função para carregar jogadores do arquivo
+void carregar_jogadores(Node **head, int *total_jogadores) {
     FILE *file = fopen(ARQUIVO, "r");
     if (file == NULL) {
         perror("Erro ao abrir o arquivo para leitura");
@@ -15,7 +22,21 @@ void carregar_jogadores(Player jogadores[], int *total_jogadores) {
     }
 
     *total_jogadores = 0;
-    while (fscanf(file, "%s %d", jogadores[*total_jogadores].nome, &jogadores[*total_jogadores].gols) == 2) {
+    Node *current = NULL;
+    while(1){
+        Node *new_node = malloc(sizeof(Node));
+        if (fscanf(file, "%s %d", new_node->jogador.nome, &new_node->jogador.gols) != 2) {
+            free(new_node);
+            break;
+        }
+        new_node->prox = NULL;
+
+        if (*head == NULL) {
+            *head = new_node;
+        } else {
+            current->prox = new_node;
+        }
+        current = new_node;
         (*total_jogadores)++;
     }
 

@@ -1,3 +1,5 @@
 a 5
 b 12Tico 2
 Diniz 0
+Tiago 1
+Gurgel 0
