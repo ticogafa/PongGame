@@ -51,13 +51,13 @@ Para executar o PongShowdown, siga estas etapas:
 
 1. Clone este repositório em sua máquina:
 
-git clone https://github.com/MigueldsBatista/PongGame.git
+  git clone https://github.com/MigueldsBatista/PongGame.git
 
-3. Compile e execute o programa:
+2. Compile e execute o programa:
 
-Execute o comando ./exec.sh
+  Execute o comando ./exec.sh
 
-5. Divirta-se jogando PongShowdown com seus amigos!
+3. Divirta-se jogando PongShowdown com seus amigos!
 
 ## 👩‍💻 Membros
 
