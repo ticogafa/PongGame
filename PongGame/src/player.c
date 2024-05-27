@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define ARQUIVO "jogadores.txt"
+#define ARQUIVO "scores.txt"
 #define MAX_JOGADORES 100
 
 // Definição da estrutura
@@ -104,13 +104,13 @@ void exibir_pontuacao(Player *jogador) {
     printf("%s Gols %d\n", jogador->nome, jogador->gols);
 }
 
-void salvar_score(Player jogadores[], int total_jogadores) {
+void salvar_score(Player jogadores[]) {
     FILE *file = fopen(ARQUIVO, "a");
     if (file == NULL) {
         printf("Erro ao abrir o arquivo para escrita");
         return;
     }
-    for (int i = 0; i < total_jogadores; i++) {
+    for (int i = 0; i < 2; i++) {
         fprintf(file, "%s %d\n", jogadores[i].nome, jogadores[i].gols);
     }
     fclose(file);
