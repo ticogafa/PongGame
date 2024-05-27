@@ -6,38 +6,40 @@
 
 // Definição da estrutura
 
-typedef struct Node {
+typedef struct Node { //Define a lista encadeada
     Player jogador;
     struct Node *prox;
 } Node;
 
 
-// Função para carregar jogadores do arquivo
+// Função para carregar jogadores do arquivo e armazenar em uma lista encadeada
 void carregar_jogadores(Node **head, int *total_jogadores) {
+    // Abrir arquivo para leitura
     FILE *file = fopen(ARQUIVO, "r");
     if (file == NULL) {
-        perror("Erro ao abrir o arquivo para leitura");
-        *total_jogadores = 0;
-        return;
+        perror("Erro ao abrir o arquivo para leitura"); //Imprime a mensagem de erro
+        *total_jogadores = 0; //Zera o total de jogadores
+        return; 
     }
 
-    *total_jogadores = 0;
-    Node *current = NULL;
+    *total_jogadores = 0; //Inicializa o total de jogadores como zero
+    Node *current = NULL; //Ponteiro para o nó atual, NULL incialmente
     while(1){
-        Node *new_node = malloc(sizeof(Node));
-        if (fscanf(file, "%s %d", new_node->jogador.nome, &new_node->jogador.gols) != 2) {
-            free(new_node);
+        Node *new_node = malloc(sizeof(Node)); //Aloca memória para o novo nó
+        if (fscanf(file, "%s %d", new_node->jogador.nome, &new_node->jogador.gols) != 2) { // Se não puder ler dois valores (nome e gols), libera a memória do nó e sai do loop
+            free(new_node); 
             break;
         }
-        new_node->prox = NULL;
+        new_node->prox = NULL; //Define o ponteiro para o próximo nó como NULL
 
+        //Insere o novo nó na lista encadeada
         if (*head == NULL) {
-            *head = new_node;
+            *head = new_node; //Se a lista estiver vazia, o novo nó é o primeiro
         } else {
-            current->prox = new_node;
+            current->prox = new_node; //Se não, o novo nó é o próximo do nó atual
         }
-        current = new_node;
-        (*total_jogadores)++;
+        current = new_node; //O nó atual passa a ser o novo nó
+        (*total_jogadores)++; //Incrementa o total de jogadores
     }
 
     fclose(file);
