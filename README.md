@@ -55,10 +55,11 @@ Para executar o PongShowdown, siga estas etapas:
 
 2. Compile e execute o programa:
 
-  Execute os comandos:
-            cd PongGame
-            ./exec.sh
-
+  Execute os comandos:<br>
+  <strong>
+            <p> ➮ cd PongGame</p>
+            <p> ➮ ./exec.sh</p>
+</strong>
 3. Divirta-se jogando PongShowdown com seus amigos!
 
 ## 👩‍💻 Membros
