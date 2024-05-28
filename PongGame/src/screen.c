@@ -11,6 +11,7 @@
 #include <time.h>
 #include "timer.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 // Função que desenha as bordas da tela
 void screenDrawBorders() 
@@ -204,14 +205,57 @@ int logo() {
   return 0;
 }
 
+int teclaW(){
+    printf(" ____ \n");
+    printf("||W ||\n");
+    printf("||__||          Para mover a raquete para cima\n");
+    printf("|/__\\|\n");
+    return 0;
+}
+
+int teclaS(){
+    printf(" ____ \n");
+    printf("||S ||\n");
+    printf("||__||          Para mover a raquete para baixo\n");
+    printf("|/__\\|\n");
+    return 0; 
+}
+
+int teclaI(){
+    printf(" ____ \n");
+    printf("||I ||\n");
+    printf("||__||          Para mover a raquete para cima\n");
+    printf("|/__\\|\n");
+    return 0; 
+}
+
+int teclaK(){
+    printf(" ____ \n");
+    printf("||K ||\n");
+    printf("||__||          Para mover a raquete para baixo\n");
+    printf("|/__\\|\n");
+    return 0; 
+}
+
+
 void telaInicio() {
-    
+
+    static int primeiraVez = 1; 
+
+  if (primeiraVez) {
+    system("clear"); 
+    primeiraVez = 0; 
+  }
     printf("\n\n\n");
     logo();
     printf("   Instruções:\n");
-    printf("   - teclas W e S movem a raquete esquerda\n");
-    printf("   - teclas I e K movem a raquete direita\n");
-    printf("   - Cadastre seu nome e se divirta!!\n");
+    printf("\n   - Raquete da esquerda (Jogador 1)\n");
+    teclaW();
+    teclaS();
+    printf("\n   - Raquete da direita (Jogador 2)\n");
+    teclaI();
+    teclaK();
+    printf("\n   - Cadastre seu nome e se divirta!!\n");
     printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
     printf("   Boa sorte!\n\n");
     
@@ -219,17 +263,4 @@ void telaInicio() {
     printf("   2. Ranking dos jogadores 🏆\n");
     printf("   3. Sair do programa\n");
     printf("\n   Escolha uma opção: ");
-}
-
-
-void help_info(){
-    screenGotoxy(8, 30);
-    printf("______________________________\n");
-    printf("|W ↑|    |S ↓|    |A ╾━╤デ╦︻|\n");
-    printf("______________________________");
-    screenGotoxy(MAXX-15, 30);
-    printf("______________________________\n");
-    printf("|I ↑|    |K ↓|    |L ╾━╤デ╦︻|\n");
-    printf("______________________________");
-
 }

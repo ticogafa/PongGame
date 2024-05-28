@@ -55,7 +55,7 @@ void countdown(int time) {
     for (int i = time; i > 0; i--) {
         screenGotoxy(33, 12);
         
-        printf("O JOGO COMEÇA EM %d", i);
+        printf("PREPARE-SE!! %d", i);
         
         screenUpdate();
         

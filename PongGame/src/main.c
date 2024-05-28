@@ -41,7 +41,6 @@ Cords printHello(int nextX, int nextY) {
 
     return cord;
 }
-
 void printKey(int ch) {
     screenSetColor(YELLOW, DARKGRAY);  // Define as cores para texto e fundo
     if (ch == 27)  // Se o código for o de "Esc", ajusta a posição
@@ -105,7 +104,7 @@ int main() {
     struct timeval tempo;
     struct timeval startTime;
    
-
+    
     while (escolha != 3) {
         telaInicio();
         scanf("%d", &escolha);
@@ -144,37 +143,52 @@ int main() {
                 screenInit(1);  // Inicializa a tela
                 keyboardInit();  // Inicializa configurações do teclado
                 timerInit(50);  // Inicializa o temporizador com 50 ms
-                help_info();
                 screenUpdate();
 
                 while (1) {
                     gettimeofday(&tempo, NULL);
                     long segundos = tempo.tv_sec - startTime.tv_sec;
+                    long tempo_jogo=GAME_TIME-segundos;
 
-                    if (segundos >= 30) {
-                        modo_tiro = 1;  // Ativa o modo de tiro após 30 segundos
+                    if (segundos >= 25 && segundos < 30) {
+                        screenGotoxy(25, 3);
+                        printf("SHOWDOWN COMEÇA EM %ld", tempo_jogo-30);
+                    } 
+                    
+                    else if (segundos == 30) {
+                        screenGotoxy(25, 3);
+                        printf("                                     ");
                     }
-                     if(GAME_TIME-segundos<0){
+                    else if((segundos>30&&segundos<60) || segundos<25){
+                    
+                    screenGotoxy(40, 3);
+                    printf("%ld", tempo_jogo);
+                    screenUpdate();
+                    if(segundos>30&&segundos<60){
+                        modo_tiro=1;
+                    }
+                    }
+
+
+                     if(tempo_jogo<0){
                          int resultado = ganhador(jogadores[0], jogadores[1]);
                         timerDestroy();
                         if (resultado == 0) {
-                            screenGotoxy(40, 5); 
-                            printf("O jogador %s é o vencedor!\n aperte C para sair", jogadores[0].nome);
-                            if(ch==99){
+                            screenGotoxy(20, 5); 
+                            printf("O jogador %s é o vencedor! aperte C para sair", jogadores[0].nome);
+                            if(ch==99) break;   
+                          
                             
-                            break;   
-                            } 
-                            break;
                         } else if (resultado == 1) {
-                            screenGotoxy(40, 5);
+                            screenGotoxy(20, 5);
                             printf("O jogador %s é o vencedor! aperte C para sair", jogadores[1].nome);
                             if(ch==99) break;
                             
-                        } else {
+                        } else if(resultado==-1) {
                             screenGotoxy(40, 5);
-                            printf("Houve um empate!\n");
+                            printf("Houve um empate! ! aperte C para sair");
                             if(ch==99) break;
-                            break;
+            
                         }
                     }
 
@@ -187,16 +201,18 @@ int main() {
                             break;
                         }
                         if (ch == 119) {  // 'W'
-                            raquete_esquerdaY = raqueteE_up(raquete_esquerdaY);  
+                            raquete_esquerdaY = raqueteE_up(raquete_esquerdaY, modo_tiro); 
+                            screenGotoxy(24, 12);
+                            printf("T:%d", modo_tiro); 
                         }
                         if (ch == 115) { //'S'
-                            raquete_esquerdaY = raqueteE_down(raquete_esquerdaY);
+                            raquete_esquerdaY = raqueteE_down(raquete_esquerdaY, modo_tiro);
                         }
                         if (ch == 105) {  // 'I'
-                            raquete_direitaY = raqueteD_up(raquete_direitaY);
+                            raquete_direitaY = raqueteD_up(raquete_direitaY, modo_tiro);
                         }
                         if (ch == 107) {  // 'K'
-                            raquete_direitaY = raqueteD_down(raquete_direitaY);
+                            raquete_direitaY = raqueteD_down(raquete_direitaY, modo_tiro);
                         }
                         if (modo_tiro) {
                             if (ch == 97 && !bala_esquerda.ativa) {  // 'A' para atirar da raquete esquerda
@@ -217,9 +233,7 @@ int main() {
 
                     // Atualiza o estado do jogo
                     if (!pausa_jogo && timerTimeOver() == 1) {  
-                        screenGotoxy(40, 3); 
-                        printf("Tempo: %ld\n", GAME_TIME-segundos);
-
+                        
                         if (!modo_tiro) {
                             int newX = cord.x + incX;
                             int newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
@@ -228,14 +242,14 @@ int main() {
                                 atualizar_gols(&jogadores[0], 1);  // Gol do jogador 1
                                segundos= pausa_gol(&pausa_jogo, &ch, &jogadores[0], &startTime, segundos);
                                 resetar(&newX, &newY);
-                                countdown(3);
+                                countdown(1);
                                 incX = -incX;
 
                             }  if (newX <= MINX + 1) { // Bateu na esquerda
                                 atualizar_gols(&jogadores[1], 1);  // Gol do jogador 2
                                 segundos=pausa_gol(&pausa_jogo, &ch, &jogadores[1], &startTime, segundos);
                                 resetar(&newX,&newY);
-                                countdown(3);
+                                countdown(1);
                                 incX = -incX;
 
                             }  if (newX == RAQUETE_DISTANCE+2 && (newY == raquete_esquerdaY || newY == raquete_esquerdaY + 1|| newY == raquete_esquerdaY + 2|| newY == raquete_esquerdaY + 3)) { // Colisão raquete lado esquerdo
@@ -249,24 +263,26 @@ int main() {
                                 incY = -incY;  // Inverte a direção no eixo Y se bater em cima
                             }
                             printHello(newX, newY);  // Atualiza a posição da bola
-                            //screenGotoxy(24, 12);
-                            //printf("X:%d Y%d", newX, newY);
-                        } else {
+
+
+
+                        } else {//MODO TIRO ATIVADO
                             timerInit(12);
+                            
                             if(bala_esquerda_gol=atualizar_bala(&bala_esquerda, 1)==1) {
                                 atualizar_gols(&jogadores[0], 1);
-                                raqueteD_piscar(raquete_direitaY);
+                                raqueteD_piscar(raquete_direitaY, modo_tiro);
 
                             } // Atualiza a bala disparada pela raquete esquerda
                             if (bala_direita_gol=atualizar_bala(&bala_direita, -1)==1){
                                 atualizar_gols(&jogadores[1], 1);
-                                raqueteE_piscar(raquete_esquerdaY);
+                                raqueteE_piscar(raquete_esquerdaY, modo_tiro);
                             }  // Atualiza a bala disparada pela raquete direita
                         }
 
                         screenGotoxy(3, 3);
                         exibir_pontuacao(&jogadores[0]);
-                        screenGotoxy(MAXX-10, 3);
+                        screenGotoxy(MAXX-20, 3);
                         exibir_pontuacao(&jogadores[1]);
 
                         screenUpdate();

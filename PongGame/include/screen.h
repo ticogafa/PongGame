@@ -196,5 +196,4 @@ void telaInicio();
 
 long pausa_tela(int *pausa, int *ch, struct timeval *startTime, long segundos);
 
-void help_info();
 #endif /* __SCREEN_H__ */

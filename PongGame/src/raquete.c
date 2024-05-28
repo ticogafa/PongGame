@@ -6,7 +6,7 @@
 
 
 //na main as raquetes começam no y 10
-int raqueteE_up(int raquete_esquerdaY) {
+int raqueteE_up(int raquete_esquerdaY, int modo_tiro) {
 
     if (raquete_esquerdaY > MINY + 2) {// Verifica se não está no limite superior
 
@@ -21,7 +21,19 @@ int raqueteE_up(int raquete_esquerdaY) {
         raquete_esquerdaY=raquete_esquerdaY-2;  // Move para cima
 
 
+        if(modo_tiro){
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);
+        printf("🏹");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 1);
+        printf("|");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 2);
+        printf("O");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 3);
+        printf("|");
+        screenUpdate();
 
+        }
+        else{
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);// Referencia do nosso Y
         printf("🏓");
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+1);
@@ -30,13 +42,14 @@ int raqueteE_up(int raquete_esquerdaY) {
         printf("O");
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3);
         printf("|");        
+        screenUpdate();            
+        }
 
-        screenUpdate();
     }
     return raquete_esquerdaY;
 }
 
-int raqueteE_down(int raquete_esquerdaY) {
+int raqueteE_down(int raquete_esquerdaY, int modo_tiro) {
     if (raquete_esquerdaY < MAXY - 5) {// Verifica se não está no limite inferior
 
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3); // Move cursor para a posição da raquete
@@ -51,7 +64,19 @@ int raqueteE_down(int raquete_esquerdaY) {
 
         raquete_esquerdaY+=2;// Move para baixo 2 pixels
 
- 
+        if(modo_tiro){
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);  // Move cursor para a posição da raquete
+        printf("🏹");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+1);
+        printf("|");  
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+2);
+        printf("O");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3);
+        printf("|");
+        screenUpdate();
+                   
+        }
+        else{
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);  // Move cursor para a posição da raquete
         printf("🏓");
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+1);
@@ -60,15 +85,14 @@ int raqueteE_down(int raquete_esquerdaY) {
         printf("O");
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY+3);
         printf("|");               
+        screenUpdate();  // Atualiza a tela    
+        }
 
-        
-
-        screenUpdate();  // Atualiza a tela
     }
     return raquete_esquerdaY;
 }
 
-int raqueteD_up(int raquete_direitaY) {
+int raqueteD_up(int raquete_direitaY, int modo_tiro) {
 
         if (raquete_direitaY > MINY + 2 ) {  // Apenas apaga se não estiver na parte superior da raquete
             screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);  // Apaga a o ultimo pixel da raquete
@@ -83,6 +107,19 @@ int raqueteD_up(int raquete_direitaY) {
         raquete_direitaY-=2;  // Move para cima miny-4=
 
         // Desenha a nova posição da raquete
+
+        if(modo_tiro){
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);  // Parte superior
+        printf("🔫");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 1);  // Parte do meio
+        printf("|");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 2);  // Parte inferior
+        printf("🪖");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 3);  // Parte inferior
+        printf("|");
+        screenUpdate();  // Atualiza a tela para refletir as mudanças
+        }
+        else{
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);  // Parte superior
         printf("🏓");
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 1);  // Parte do meio
@@ -91,12 +128,14 @@ int raqueteD_up(int raquete_direitaY) {
         printf("O");
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 3);  // Parte inferior
         printf("|");
-        screenUpdate();  // Atualiza a tela para refletir as mudanças
+        screenUpdate();  // Atualiza a tela para refletir as mudanças    
+        }
+ 
     }
     return raquete_direitaY;
 }
 
-int raqueteD_down(int raquete_direitaY) {
+int raqueteD_down(int raquete_direitaY, int modo_tiro) {
     if (raquete_direitaY < MAXY - 5) {
           // Verifica se não está no limite inferior
         
@@ -112,7 +151,18 @@ int raqueteD_down(int raquete_direitaY) {
         raquete_direitaY+=2;  // Move para baixo
         
         // Desenha a nova posição da raquete
-        
+        if(modo_tiro){
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);  // Parte superior
+        printf("🔫");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 1);  // Parte do meio
+        printf("|");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 2);  // Parte inferior
+        printf("🪖");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 3);  // Parte inferior
+        printf("|");
+        screenUpdate();  // Atualiza a tela para refletir as mudanças
+        }
+        else{
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);  // Posição superior
         printf("🏓");
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY+1);  // Posição do meio
@@ -121,26 +171,15 @@ int raqueteD_down(int raquete_direitaY) {
         printf("O");
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY+3);  // Posição inferior
         printf("|");
-        screenUpdate();  // Atualiza a tela para mostrar as mudanças    
-        
-        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);  // Posição superior
-        printf("🏓");
-        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY+1);  // Posição do meio
-        printf("|");
-        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 2);  // Posição inferior
-        printf("O");
-        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY+3);  // Posição inferior
-        printf("|");
-        screenUpdate();  // Atualiza a tela para mostrar as mudanças
-    
-
-
         screenUpdate();  // Atualiza a tela,
-    }
+    }    
+        }
+
+
     return raquete_direitaY;
 }
 
-void raqueteD_piscar(int raquete_direitaY){
+void raqueteD_piscar(int raquete_direitaY, int modo_tiro){
 
  for (int i = 0; i < 3; i++) {  // Pisca 3 vezes
         // Apaga a raquete
@@ -156,6 +195,19 @@ void raqueteD_piscar(int raquete_direitaY){
         usleep(100000);  // Espera 100ms
 
         // Desenha a raquete novamente
+        if(modo_tiro){
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);  // Parte superior
+        printf("🔫");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 1);  // Parte do meio
+        printf("|");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 2);  // Parte inferior
+        printf("🪖");
+        screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 3);  // Parte inferior
+        printf("|");
+        screenUpdate();
+        usleep(100000);  // Espera 100ms  // Atualiza a tela para refletir as mudanças    
+        }
+        else{
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY);
         printf("🏓");
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 1);
@@ -165,11 +217,13 @@ void raqueteD_piscar(int raquete_direitaY){
         screenGotoxy(MAXX - RAQUETE_DISTANCE, raquete_direitaY + 3);
         printf("|");
         screenUpdate();
-        usleep(100000);  // Espera 100ms
+        usleep(100000);  // Espera 100ms    
+        }
+
  }
 }
 
-void raqueteE_piscar(int raquete_esquerdaY){
+void raqueteE_piscar(int raquete_esquerdaY, int modo_tiro){
 
  for (int i = 0; i < 3; i++) {  // Pisca 3 vezes
         // Apaga a raquete
@@ -185,6 +239,19 @@ void raqueteE_piscar(int raquete_esquerdaY){
         usleep(100000);  // Espera 100ms
 
         // Desenha a raquete novamente
+        if(modo_tiro){
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);
+        printf("🏹");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 1);
+        printf("|");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 2);
+        printf("O");
+        screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 3);
+        printf("|");
+        screenUpdate();
+        usleep(100000);  // Espera 100ms   
+        }
+        else{
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY);
         printf("🏓");
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 1);
@@ -194,6 +261,8 @@ void raqueteE_piscar(int raquete_esquerdaY){
         screenGotoxy(1+RAQUETE_DISTANCE, raquete_esquerdaY + 3);
         printf("|");
         screenUpdate();
-        usleep(100000);  // Espera 100ms
+        usleep(100000);  // Espera 100ms            
+        }
+
  }
 }
