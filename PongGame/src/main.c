@@ -8,7 +8,6 @@
 #include <unistd.h> // Para usar a função sleep
 #include "raquete.h"
 
-
 Player jogadores[MAX_JOGADORES];
 
 typedef struct {
@@ -101,11 +100,13 @@ int main() {
     int escolha = 0;
     Player jogadores[MAX_JOGADORES];
     int total_jogadores = 0;
+    int contador_incial = 0;
     struct timeval tempo;
     struct timeval startTime;
    
     
     while (escolha != 3) {
+    
         telaInicio();
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do stdin
