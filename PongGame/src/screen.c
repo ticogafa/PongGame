@@ -163,7 +163,7 @@ long pausa_gol(int *pausa, int *ch, Player *jogador, struct timeval *startTime, 
 
         while (*pausa) { 
             screenGotoxy(10, 10);
-            printf("Gol do jogador %s. Pressione 'C' para continuar.", jogador->nome);
+            printf("GOL DE %s!!! PRESSIONE 'C' PARA CONTINUAR.", jogador->nome);
             screenUpdate();
             if (keyhit()) {
                 *ch = readch();
@@ -192,6 +192,8 @@ void resetar(int *newX, int *newY) {
     *newX=MAXX/2;
     *newY=MAXY/2;
 }
+
+
 
 int logo() {
   printf("  _____                   _____ _                      _                     \n");
@@ -224,7 +226,7 @@ int teclasSK(){
 int teclasAL(){
     printf("\t\t ____ \t\t\t\t\t\t\t\t ____ \n");
     printf("\t\t||A ||\t\t\t\t\t\t\t\t||L ||\n");
-    printf("\t\t||__||\t\t\tPara atirar (últimos 30segundos)\t||__||\n");
+    printf("\t\t||__||\t\t\tPara atirar                     \t||__||\n");
     printf("\t\t|/__\\|\t\t\t\t\t\t\t\t|/__\\|\n");
     return 0;
 }
@@ -240,7 +242,7 @@ int Jogador1(){
     return 0;
 }
 
-void telaInicio() {
+int telaInicio(int escolha) {
 
     static int primeiraVez = 1; 
 
@@ -251,15 +253,45 @@ void telaInicio() {
     printf("\n\n\n");
     logo();
     printf("   Instruções:\n");
+    if (escolha==2){
+
+    printf("   1. Começar um jogo\n");
+    printf("   2. Ranking dos jogadores 🏆\n");
+    printf("   3. Instruções de jogo\n");
+    
+    printf("   4. Sair do programa\n");
+    }
+    else if(escolha==3){
     Jogador1();
     teclasWI();
     teclasSK();
     teclasAL();
     printf("\n   - Cadastre seu nome e se divirta!!\n");
+    printf("\n   - Ao final do jogo seu placar será salvo no ranking dos jogadores\n");
+    printf("\n   - Durante a partida após 30 segundos as raquetes serão substituídas por armas, e o objetivo será acertar o outro jogador para ganhar pontos\n\n");
     printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
     printf("   Boa sorte!\n\n");
     printf("   1. Começar um jogo\n");
     printf("   2. Ranking dos jogadores 🏆\n");
-    printf("   3. Sair do programa\n");
-    printf("\n   Escolha uma opção: ");
+    printf("   3. Instruções de jogo\n");
+    printf("   4. Sair do programa\n");
+    printf("\n   Escolha uma opção: ");    
+    }
+    else {
+    Jogador1();
+    teclasWI();
+    teclasSK();
+    teclasAL();
+    printf("\n   - Cadastre seu nome e se divirta!!\n");
+    printf("\n   - Ao final do jogo seu placar será salvo no ranking dos jogadores\n");
+    printf("\n   - Durante a partida após 30 segundos as raquetes serão substituídas por armas, e o objetivo será o outro jogador para ganhar pontos\n\n");
+
+    printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
+    printf("   Boa sorte!\n\n");
+    printf("   1. Começar um jogo\n");
+    printf("   2. Ranking dos jogadores 🏆\n");
+    printf("   3. Instruções de jogo\n");
+    printf("   4. Sair do programa\n");
+    printf("\n   Escolha uma opção: "); 
+        }
 }

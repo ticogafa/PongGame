@@ -192,8 +192,9 @@ long pausa_gol(int *pausa, int *ch, Player *jogador, struct timeval *startTime, 
 
 void resetar(int *newX, int *newY);
 
-void telaInicio();
+int telaInicio(int escolha);
 
 long pausa_tela(int *pausa, int *ch, struct timeval *startTime, long segundos);
+
 
 #endif /* __SCREEN_H__ */

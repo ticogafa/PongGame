@@ -87,10 +87,12 @@ int atualizar_bala(Bala* bala, int incX) {
             return bala_direita_gol;
             
         }
-        // Se não houve colisão, desenha a bala na nova posição
+
         else {
+
             screenGotoxy(bala->x, bala->y);
             printf("-");  // Desenha a bala na nova posição
+
         }
     }
 }
@@ -105,9 +107,9 @@ int main() {
     struct timeval startTime;
    
     
-    while (escolha != 3) {
+    while (escolha != 4) {
     
-        telaInicio();
+        telaInicio(escolha);
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do stdin
 
@@ -189,30 +191,30 @@ int main() {
                     screenGotoxy(40, 3);
                     printf("%ld", tempo_jogo);//printa o tempo do jogo
                     screenUpdate();
-                    if(segundos>=30&&segundos<60){
+                    if(segundos>=5&&segundos<60){
                         modo_tiro=1;
                     }
                     }
                 
 
-                     if(tempo_jogo<0){
+                     if(tempo_jogo<=0){
 
                          int resultado = ganhador(jogadores[0], jogadores[1]);
                         timerDestroy();
                         if (resultado == 0) {
                             screenGotoxy(20, 12); 
-                            printf("O jogador %s é o vencedor! aperte C para sair", jogadores[0].nome);
+                            printf(" O JOGADOR %s É O VENCEDOR, PRESSIONE C PARA SAIR", jogadores[0].nome);
                             if(ch==99) break;   
                           
                             
                         } else if (resultado == 1) {
                             screenGotoxy(20, 12);
-                            printf("O jogador %s é o vencedor! aperte C para sair", jogadores[1].nome);
+                            printf("O JOGADOR %s É O VENCEDOR, PRESSIONE C PARA SAIR" , jogadores[1].nome);
                             if(ch==99) break;
                             
                         } else if(resultado==-1) {
                             screenGotoxy(25, 12);
-                            printf("Houve um empate! ! aperte C para sair");
+                            printf("HOUVE UM EMPATE! ! PRESSIONE C PARA SAIR");
                             if(ch==99) break;
             
                         }
@@ -277,6 +279,7 @@ int main() {
                                 atualizar_gols(&jogadores[1], 1);  // Gol do jogador 2
                                 segundos=pausa_gol(&pausa_jogo, &ch, &jogadores[1], &startTime, segundos);
                                 resetar(&newX,&newY);
+
                                 countdown(1);
                                 incX = -incX;
 
@@ -295,7 +298,7 @@ int main() {
 
 
                         } else {//MODO TIRO ATIVADO
-                            timerInit(12);
+                            timerInit(10);
                             
                             if(bala_esquerda_gol=atualizar_bala(&bala_esquerda, 1)==1) {
                                 atualizar_gols(&jogadores[0], 1);
@@ -326,7 +329,12 @@ int main() {
                 qsort(jogadores, total_jogadores, sizeof(Player), comparar_jogadores);
                 imprimir_score(jogadores, total_jogadores);
                 break;
+            
+
             case 3:
+                telaInicio(escolha);
+                break;
+            case 4:
                 // Sair do programa
                 printf("Saindo do programa...\n");
                 break;
