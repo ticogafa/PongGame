@@ -27,6 +27,6 @@ void imprimir_score(Player jogadores[], int total_jogadores);
 
 void carregar_score(Player jogadores[], int *total_jogadores);
 
-
+int ganhador(Player jogador_a, Player jogador_b);
 
 #endif 

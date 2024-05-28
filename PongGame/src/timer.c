@@ -8,6 +8,8 @@
 #include "timer.h"
 #include <sys/time.h>
 #include <stdio.h>
+#include "screen.h"
+#include <unistd.h>
 
 static struct timeval timer, now;  // Estruturas para armazenar tempos específicos
 static int delay = -1;  // Variável para guardar o tempo de atraso em milissegundos
@@ -49,14 +51,19 @@ void timerPrint() {
 
 struct timeval currentTime;
 
-long countdown(struct timeval startTime){
-gettimeofday(&currentTime, NULL);
-
-long segundos = currentTime.tv_sec - startTime.tv_sec;
-
-
-return segundos;
+void countdown(int time) {
+    for (int i = time; i > 0; i--) {
+        screenGotoxy(33, 12);
+        
+        printf("O JOGO COMEÇA EM %d", i);
+        
+        screenUpdate();
+        
+        sleep(1);
+        
+        screenGotoxy(24, 12);
+        printf("                           "); // 
+    }
 }
-
 
                 

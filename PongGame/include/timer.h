@@ -4,6 +4,11 @@
  * Author: Tiago Barros
  * Based on "From C to C++ course - 2002"
 */
+#ifndef __TIMER_H__
+#define __TIMER_H__
+
+
+
 
 void timerInit(int valueMilliSec);
 
@@ -15,4 +20,6 @@ int timerTimeOver();
 
 void timerPrint();
 
-long int countdown();
+void countdown(int time);
+
+#endif // !__

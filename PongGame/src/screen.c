@@ -8,6 +8,10 @@
 #include "screen.h"
 #include "player.h"
 #include "keyboard.h"
+#include <time.h>
+#include "timer.h"
+#include <unistd.h>
+
 // Função que desenha as bordas da tela
 void screenDrawBorders() 
 {
@@ -104,58 +108,88 @@ void screenSetColor(screenColor fg, screenColor bg)
 
 
 
-
-void pausa_tela(int *pausa, int *ch) {
-    if (*ch == 27) { // Se a tecla "ESC" for pressionada, alterna o estado de pausa
-        *pausa = !(*pausa);
-        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de pausa seja executada várias vezes
-    }
-    if (*pausa) {
-        screenGotoxy(10, 10);
-        printf("Jogo pausado. Pressione 'C' para continuar.");
-        screenUpdate();
-        while (*ch != 99) {  // 'C' 
-            if (keyhit()) { // Verifica se alguma tecla foi pressionada
-                *ch = readch(); 
-            }
-        }
-        *pausa = 0; 
-        *ch = 0; 
-        screenGotoxy(10, 10); 
-        
-        printf("                                            "); // Sobrescreve os caracteres com espaços em branco
-        
-        screenUpdate(); 
-    }
-}
-void pausa_gol(int *pausa, int *ch, Player *jogador) {
-   
-        *pausa = !(*pausa);
-        *ch = 0; // Limpa a tecla pressionada para evitar que a ação de pausa seja executada várias vezes
+long pausa_tela(int *pausa, int *ch, struct timeval *startTime, long segundos) {
+    struct timeval tempo;
     
+    // Alterna o estado de pausa ao pressionar 'ESC'
+    if (*ch == 27) {
+        *pausa = !(*pausa);
+        *ch = 0;
+    }
+
     if (*pausa) {
-        screenGotoxy(10, 10);
-        printf("Gol do Jogador %s!!! Pressione 'C' para continuar.", jogador->nome);
-        screenUpdate();
-        while (*ch != 99) {  // 'C' 
-            if (keyhit()) { // Verifica se alguma tecla foi pressionada
-                *ch = readch(); 
+        // Armazena o tempo quando a pausa começou
+        gettimeofday(&tempo, NULL);
+        long segundos_pausa = tempo.tv_sec;
+
+        while (*pausa) { 
+            screenGotoxy(10, 10);
+            printf("Jogo pausado. Pressione 'C' para continuar.");
+            screenUpdate();
+            if (keyhit()) {
+                *ch = readch();
+                if (*ch == 99) { // 'C'
+                    // Calcula o tempo de pausa
+                    gettimeofday(&tempo, NULL);
+                    long segundos_pausa_fim = tempo.tv_sec;
+                    long duracao_pausa = segundos_pausa_fim - segundos_pausa;
+                    *pausa = 0; // Desativa a pausa
+                    *ch = 0;
+                    screenGotoxy(10, 10);
+                    printf("                                                          "); // Limpa a mensagem de pausa
+                    screenUpdate();
+                    // Ajusta startTime pela duração da pausa
+                    startTime->tv_sec = (startTime->tv_sec)+duracao_pausa;
+                    return segundos; // Retorna os segundos inalterados
+                }
             }
         }
-        *pausa = 0; 
-        *ch = 0; 
-        screenGotoxy(10, 10); 
-        
-        printf("                                                               "); // Sobrescreve os caracteres com espaços em branco
-        
-        screenUpdate();
     }
+    return segundos; // Retorna os segundos inalterados se não houver pausa
 }
+
+
+long pausa_gol(int *pausa, int *ch, Player *jogador, struct timeval *startTime, long segundos) {
+    struct timeval tempo;
+       *pausa = !(*pausa);
+        *ch = 0; 
+
+    if (*pausa) {
+ 
+        // Armazena o tempo quando a pausa começou
+        gettimeofday(&tempo, NULL);
+        long segundos_pausa = tempo.tv_sec;
+
+        while (*pausa) { 
+            screenGotoxy(10, 10);
+            printf("Gol do jogador %s. Pressione 'C' para continuar.", jogador->nome);
+            screenUpdate();
+            if (keyhit()) {
+                *ch = readch();
+                if (*ch == 99) { // 'C'
+                    // Calcula o tempo de pausa
+                    gettimeofday(&tempo, NULL);
+                    
+                    long duracao_pausa = tempo.tv_sec - segundos_pausa;
+                    *pausa = 0; // Desativa a pausa
+                    *ch = 0;
+                    screenGotoxy(10, 10);
+                    printf("                                                            "); // Limpa a mensagem de pausa
+                    screenUpdate();
+                    // Ajusta startTime pela duração da pausa
+                    (startTime->tv_sec) = (startTime->tv_sec)+duracao_pausa;
+                    return segundos; // Retorna os segundos inalterados
+                }
+            }
+        }
+    }
+    return segundos; // Retorna os segundos inalterados se não houver pausa
+}
+
 
 void resetar(int *newX, int *newY) {
     *newX=MAXX/2;
     *newY=MAXY/2;
-    
 }
 
 
@@ -171,7 +205,20 @@ void telaInicio() {
     printf("   Boa sorte!\n\n");
     
     printf("   1. Começar um jogo\n");
-    printf("   2. Ranking dos jogadores\n");
+    printf("   2. Ranking dos jogadores 🏆\n");
     printf("   3. Sair do programa\n");
     printf("\n   Escolha uma opção: ");
+}
+
+
+void help_info(){
+    screenGotoxy(8, 30);
+    printf("______________________________\n");
+    printf("|W ↑|    |S ↓|    |A ╾━╤デ╦︻|\n");
+    printf("______________________________");
+    screenGotoxy(MAXX-15, 30);
+    printf("______________________________\n");
+    printf("|I ↑|    |K ↓|    |L ╾━╤デ╦︻|\n");
+    printf("______________________________");
+
 }

@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define ARQUIVO "scores.txt"
 #define MAX_JOGADORES 100
 
 // Definição da estrutura
@@ -154,5 +153,15 @@ void imprimir_score(Player jogadores[], int total_jogadores) {
 
     for (int i = 0; i < total_jogadores; i++) {
         printf("%d. %s - Gols: %d\n", i + 1, jogadores[i].nome, jogadores[i].gols);
+    }
+}
+
+int ganhador(Player jogador_a, Player jogador_b) {
+    if (jogador_a.gols > jogador_b.gols) {
+        return 0; // jogador_a é o ganhador
+    } else if (jogador_a.gols < jogador_b.gols) {
+        return 1; // jogador_b é o ganhador
+    } else {
+        return -1; // empate
     }
 }

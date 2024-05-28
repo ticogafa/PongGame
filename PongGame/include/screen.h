@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 #include "player.h"
+#include "timer.h"
+#include <sys/time.h>
 
 // Terminal control sequences
 #define ESC            "\033"
@@ -186,16 +188,13 @@ void screenGotoxy(int x, int y);
 void screenSetColor(screenColor fg, screenColor bg);
 
 
-void pausa_tela(int *pausa, int *ch);
-
-void pausa_gol(int *pausa, int *ch, Player *jogador);
+long pausa_gol(int *pausa, int *ch, Player *jogador, struct timeval *startTime, long segundos);
 
 void resetar(int *newX, int *newY);
 
 void telaInicio();
 
+long pausa_tela(int *pausa, int *ch, struct timeval *startTime, long segundos);
 
-
-
-
+void help_info();
 #endif /* __SCREEN_H__ */
