@@ -205,38 +205,40 @@ int logo() {
   return 0;
 }
 
-int teclaW(){
-    printf(" ____ \n");
-    printf("||W ||\n");
-    printf("||__||          Para mover a raquete para cima\n");
-    printf("|/__\\|\n");
+int teclasWI(){
+    printf("\t\t ____ \t\t\t\t\t\t\t\t ____ \n");
+    printf("\t\t||W ||\t\t\t\t\t\t\t\t||I ||\n");
+    printf("\t\t||__||\t\t\t Para mover a raquete para cima\t\t||__||\n");
+    printf("\t\t|/__\\|\t\t\t\t\t\t\t\t|/__\\|\n");
     return 0;
 }
 
-int teclaS(){
-    printf(" ____ \n");
-    printf("||S ||\n");
-    printf("||__||          Para mover a raquete para baixo\n");
-    printf("|/__\\|\n");
-    return 0; 
+int teclasSK(){
+    printf("\t\t ____ \t\t\t\t\t\t\t\t ____ \n");
+    printf("\t\t||S ||\t\t\t\t\t\t\t\t||K ||\n");
+    printf("\t\t||__||\t\t\tPara mover a raquete para baixo\t\t||__||\n");
+    printf("\t\t|/__\\|\t\t\t\t\t\t\t\t|/__\\|\n");
+    return 0;
 }
 
-int teclaI(){
-    printf(" ____ \n");
-    printf("||I ||\n");
-    printf("||__||          Para mover a raquete para cima\n");
-    printf("|/__\\|\n");
-    return 0; 
+int teclasAL(){
+    printf("\t\t ____ \t\t\t\t\t\t\t\t ____ \n");
+    printf("\t\t||A ||\t\t\t\t\t\t\t\t||L ||\n");
+    printf("\t\t||__||\t\t\tPara atirar (últimos 30segundos)\t||__||\n");
+    printf("\t\t|/__\\|\t\t\t\t\t\t\t\t|/__\\|\n");
+    return 0;
 }
 
-int teclaK(){
-    printf(" ____ \n");
-    printf("||K ||\n");
-    printf("||__||          Para mover a raquete para baixo\n");
-    printf("|/__\\|\n");
-    return 0; 
-}
+int Jogador1(){
 
+    printf("     _                   _           _ \t\t\t\t     _                   _           ___ \n");
+    printf("  _ | |___  __ _ __ _ __| |___ _ _  / |\t\t\t\t  _ | |___  __ _ __ _ __| |___ _ _  |_  )\n");
+    printf(" | || / _ \\/ _` / _` / _` / _ \\ '_| | |\t\t\t\t | || / _ \\/ _` / _` / _` / _ \\ '_|  / / \n");
+    printf("  \\__/\\___/\\__, \\__,_\\__,_\\___/_|   |_|\t\t\t\t  \\__/\\___/\\__, \\__,_\\__,_\\___/_|   /___|\n");
+    printf("           |___/                       \t\t\t\t           |___/                         \n");
+
+    return 0;
+}
 
 void telaInicio() {
 
@@ -249,16 +251,13 @@ void telaInicio() {
     printf("\n\n\n");
     logo();
     printf("   Instruções:\n");
-    printf("\n   - Raquete da esquerda (Jogador 1)\n");
-    teclaW();
-    teclaS();
-    printf("\n   - Raquete da direita (Jogador 2)\n");
-    teclaI();
-    teclaK();
+    Jogador1();
+    teclasWI();
+    teclasSK();
+    teclasAL();
     printf("\n   - Cadastre seu nome e se divirta!!\n");
     printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
     printf("   Boa sorte!\n\n");
-    
     printf("   1. Começar um jogo\n");
     printf("   2. Ranking dos jogadores 🏆\n");
     printf("   3. Sair do programa\n");
