@@ -145,52 +145,78 @@ int main() {
                 keyboardInit();  // Inicializa configurações do teclado
                 timerInit(50);  // Inicializa o temporizador com 50 ms
                 screenUpdate();
+                raqueteD_piscar(raquete_direitaY, modo_tiro);
+                raqueteE_piscar(raquete_esquerdaY, modo_tiro);
+                screenGotoxy(3, 3);
+                exibir_pontuacao(&jogadores[0]);//printa o placar no showdown
+                screenGotoxy(MAXX-20, 3);
+                exibir_pontuacao(&jogadores[1]);
+
+                countdown(3);
+                
 
                 while (1) {
                     gettimeofday(&tempo, NULL);
                     long segundos = tempo.tv_sec - startTime.tv_sec;
                     long tempo_jogo=GAME_TIME-segundos;
+                    int newX, newY;
 
                     if (segundos >= 25 && segundos < 30) {
-                        screenGotoxy(25, 3);
+                        screenGotoxy(25, 12);
                         printf("SHOWDOWN COMEÇA EM %ld", tempo_jogo-30);
+                        screenGotoxy(40, 3);
+                        printf("                    ");
+
+                        screenGotoxy(3, 3);
+                        exibir_pontuacao(&jogadores[0]);//printa o placar no showdown
+                        screenGotoxy(MAXX-20, 3);
+                        exibir_pontuacao(&jogadores[1]);
                     } 
-                    
-                    else if (segundos == 30) {
-                        screenGotoxy(25, 3);
-                        printf("                                     ");
+                    else if(segundos==30){
+                        screenGotoxy(25, 12);
+                        printf("                                              ");//apaga mensagem do showdown
+
+                        screenGotoxy(newX, newY);
+                        printf(" ");
                     }
                     else if((segundos>30&&segundos<60) || segundos<25){
-                    
+                        
+                    screenGotoxy(3, 3);
+                    exibir_pontuacao(&jogadores[0]);//printa placar no tempo normal
+                    screenGotoxy(MAXX-20, 3);
+                    exibir_pontuacao(&jogadores[1]);
+
                     screenGotoxy(40, 3);
-                    printf("%ld", tempo_jogo);
+                    printf("%ld", tempo_jogo);//printa o tempo do jogo
                     screenUpdate();
-                    if(segundos>30&&segundos<60){
+                    if(segundos>=30&&segundos<60){
                         modo_tiro=1;
                     }
                     }
-
+                
 
                      if(tempo_jogo<0){
+
                          int resultado = ganhador(jogadores[0], jogadores[1]);
                         timerDestroy();
                         if (resultado == 0) {
-                            screenGotoxy(20, 5); 
+                            screenGotoxy(20, 12); 
                             printf("O jogador %s é o vencedor! aperte C para sair", jogadores[0].nome);
                             if(ch==99) break;   
                           
                             
                         } else if (resultado == 1) {
-                            screenGotoxy(20, 5);
+                            screenGotoxy(20, 12);
                             printf("O jogador %s é o vencedor! aperte C para sair", jogadores[1].nome);
                             if(ch==99) break;
                             
                         } else if(resultado==-1) {
-                            screenGotoxy(40, 5);
+                            screenGotoxy(25, 12);
                             printf("Houve um empate! ! aperte C para sair");
                             if(ch==99) break;
             
                         }
+
                     }
 
                     if (!pausa_jogo && keyhit()) {
@@ -214,6 +240,8 @@ int main() {
                             raquete_direitaY = raqueteD_down(raquete_direitaY, modo_tiro);
                         }
                         if (modo_tiro) {
+                            
+
                             if (ch == 97 && !bala_esquerda.ativa) {  // 'A' para atirar da raquete esquerda
                                 bala_esquerda.x = RAQUETE_DISTANCE + 2;
                                 bala_esquerda.y = raquete_esquerdaY + 1;
@@ -231,11 +259,12 @@ int main() {
                     }
 
                     // Atualiza o estado do jogo
-                    if (!pausa_jogo && timerTimeOver() == 1) {  
+                    if ((!pausa_jogo && timerTimeOver() == 1)&&segundos<60) {  
                         
+
                         if (!modo_tiro) {
-                            int newX = cord.x + incX;
-                            int newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
+                            newX = cord.x + incX;
+                            newY = cord.y + incY; //Inclinação da bola horizontal para andar na diagonal
 
                             if (newX >= (MAXX - 1)) { // Bateu na direita
                                 atualizar_gols(&jogadores[0], 1);  // Gol do jogador 1
@@ -279,10 +308,6 @@ int main() {
                             }  // Atualiza a bala disparada pela raquete direita
                         }
 
-                        screenGotoxy(3, 3);
-                        exibir_pontuacao(&jogadores[0]);
-                        screenGotoxy(MAXX-20, 3);
-                        exibir_pontuacao(&jogadores[1]);
 
                         screenUpdate();
                  }
