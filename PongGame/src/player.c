@@ -152,7 +152,7 @@ void imprimir_score(Player jogadores[], int total_jogadores) {
     printf("Ranking dos jogadores:\n");
 
     for (int i = 0; i < total_jogadores; i++) {
-        printf("%d. %s - Gols: %d\n", i + 1, jogadores[i].nome, jogadores[i].gols);
+        printf("%d. %s - Pontuação: %d\n", i + 1, jogadores[i].nome, jogadores[i].gols);
     }
 }
 
