@@ -4,13 +4,13 @@
 
 
 
-int raqueteE_up(raquete_esquerdaY);
+int raqueteE_up();
 
-int raqueteE_down(raquete_esquerdaY);
+int raqueteE_down();
 
-int raqueteD_up(raquete_direitaY);
+int raqueteD_up();
 
-int raqueteD_down(raquete_direitaY);
+int raqueteD_down();
 
 void raqueteD_piscar(int raquete_direita);
 

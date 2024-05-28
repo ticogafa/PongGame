@@ -192,11 +192,22 @@ void resetar(int *newX, int *newY) {
     *newY=MAXY/2;
 }
 
+int logo() {
+  printf("  _____                   _____ _                      _                     \n");
+  printf(" |  __ \\                 / ____| |                    | |                    \n");
+  printf(" | |__) |__  _ __   __ _| (___ | |__   _____      ____| | _____      ___ __  \n");
+  printf(" |  ___/ _ \\| '_ \\ / _` |\\___ \\| '_ \\ / _ \\ \\ /\\ / / _` |/ _ \\ \\ /\\ / / '_ \\ \n");
+  printf(" | |  | (_) | | | | (_| |____) | | | | (_) \\ V  V / (_| | (_) \\ V  V /| | | |\n");
+  printf(" |_|   \\___/|_| |_|\\__, |_____/|_| |_|\\___/ \\_/\\_/ \\__,_|\\___/ \\_/\\_/ |_| |_|\n");
+  printf("                    __/ |                                                    \n");
+  printf("                   |___/                                                     \n");
+  return 0;
+}
 
 void telaInicio() {
     
     printf("\n\n\n");
-    printf("       JOGO DO PONG\n\n");
+    logo();
     printf("   Instruções:\n");
     printf("   - teclas W e S movem a raquete esquerda\n");
     printf("   - teclas I e K movem a raquete direita\n");
