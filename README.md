@@ -29,7 +29,9 @@
 
 ## 📄 Descrição
 
-O Pong é um dos primeiros jogos eletrônicos de todos os tempos, lançado em 1972. Ele simula um jogo de tênis, onde dois jogadores controlam retângulos verticais, conhecidos como "raquetes", que se movem para cima e para baixo nas extremidades esquerda e direita da tela. Uma bola é lançada entre as duas raquetes, e a sua trajetória é afetada pelo ângulo de colisão com as raquetes e as paredes superior e inferior da tela. A estética é simples, com gráficos monocromáticos e sons básicos para os impactos da bola.
+O Pong é o primeiro jogo eletrônico de todos os tempos, lançado em 1972. Ele simula um jogo de tênis, onde dois jogadores controlam "raquetes" que se movem para cima e para baixo nas extremidades esquerda e direita da tela. Uma bola é lançada entre as duas raquetes, e a sua trajetória é afetada pelo ângulo de colisão com as raquetes e as paredes superior e inferior da tela. A estética é simples, com gráficos monocromáticos e sons básicos para os impactos da bola.
+
+
 
 ## 🎲 Objetivo do Jogo
 
