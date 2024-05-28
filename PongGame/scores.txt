@@ -24,3 +24,5 @@ dvf 3
 bgbg 2
 ascd 1
 fbg 2
+kfmv 2
+fvx 4
