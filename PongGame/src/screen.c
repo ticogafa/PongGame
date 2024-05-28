@@ -204,13 +204,50 @@ int logo() {
   return 0;
 }
 
+int teclaW(){
+    printf(" ____ \n");
+    printf("||W ||\n");
+    printf("||__||          Para mover a raquete para cima\n");
+    printf("|/__\\|\n");
+    return 0;
+}
+
+int teclaS(){
+    printf(" ____ \n");
+    printf("||S ||\n");
+    printf("||__||          Para mover a raquete para baixo\n");
+    printf("|/__\\|\n");
+    return 0; 
+}
+
+int teclaI(){
+    printf(" ____ \n");
+    printf("||I ||\n");
+    printf("||__||          Para mover a raquete para cima\n");
+    printf("|/__\\|\n");
+    return 0; 
+}
+
+int teclaK(){
+    printf(" ____ \n");
+    printf("||K ||\n");
+    printf("||__||          Para mover a raquete para baixo\n");
+    printf("|/__\\|\n");
+    return 0; 
+}
+
+
 void telaInicio() {
     
     printf("\n\n\n");
     logo();
     printf("   Instruções:\n");
-    printf("   - teclas W e S movem a raquete esquerda\n");
-    printf("   - teclas I e K movem a raquete direita\n");
+    printf("\n   - Raquete da esquerda (Jogador 1)\n");
+    teclaW();
+    teclaS();
+    printf("\n   - Raquete da direita (Jogador 2)\n");
+    teclaI();
+    teclaK();
     printf("   - Cadastre seu nome e se divirta!!\n");
     printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
     printf("   Boa sorte!\n\n");
