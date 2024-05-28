@@ -11,6 +11,7 @@
 #include <time.h>
 #include "timer.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 // Função que desenha as bordas da tela
 void screenDrawBorders() 
@@ -238,7 +239,13 @@ int teclaK(){
 
 
 void telaInicio() {
-    
+
+    static int primeiraVez = 1; 
+
+  if (primeiraVez) {
+    system("clear"); 
+    primeiraVez = 0; 
+  }
     printf("\n\n\n");
     logo();
     printf("   Instruções:\n");
@@ -248,7 +255,7 @@ void telaInicio() {
     printf("\n   - Raquete da direita (Jogador 2)\n");
     teclaI();
     teclaK();
-    printf("   - Cadastre seu nome e se divirta!!\n");
+    printf("\n   - Cadastre seu nome e se divirta!!\n");
     printf("   - Para sair no meio do jogo, pressione ENTER, para pausar pressione ESC\n\n");
     printf("   Boa sorte!\n\n");
     
@@ -256,17 +263,4 @@ void telaInicio() {
     printf("   2. Ranking dos jogadores 🏆\n");
     printf("   3. Sair do programa\n");
     printf("\n   Escolha uma opção: ");
-}
-
-
-void help_info(){
-    screenGotoxy(8, 30);
-    printf("______________________________\n");
-    printf("|W ↑|    |S ↓|    |A ╾━╤デ╦︻|\n");
-    printf("______________________________");
-    screenGotoxy(MAXX-15, 30);
-    printf("______________________________\n");
-    printf("|I ↑|    |K ↓|    |L ╾━╤デ╦︻|\n");
-    printf("______________________________");
-
 }
