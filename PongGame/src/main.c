@@ -203,8 +203,6 @@ int main() {
                         }
                         if (ch == 119) {  // 'W'
                             raquete_esquerdaY = raqueteE_up(raquete_esquerdaY, modo_tiro); 
-                            screenGotoxy(24, 12);
-                            printf("T:%d", modo_tiro); 
                         }
                         if (ch == 115) { //'S'
                             raquete_esquerdaY = raqueteE_down(raquete_esquerdaY, modo_tiro);
