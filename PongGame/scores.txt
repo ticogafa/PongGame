@@ -1,2 +1,1 @@
-tico 5
-teteu 2
+tico 9999
