@@ -191,7 +191,7 @@ int main() {
                     screenGotoxy(40, 3);
                     printf("%ld", tempo_jogo);//printa o tempo do jogo
                     screenUpdate();
-                    if(segundos>=5&&segundos<60){
+                    if(segundos>=30&&segundos<60){
                         modo_tiro=1;
                     }
                     }

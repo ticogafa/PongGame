@@ -29,23 +29,22 @@
 
 ## 📄 Descrição
 
-O Pong é o primeiro jogo eletrônico de todos os tempos, lançado em 1972. Ele simula um jogo de tênis, onde dois jogadores controlam "raquetes" que se movem para cima e para baixo nas extremidades esquerda e direita da tela. Uma bola é lançada entre as duas raquetes, e a sua trajetória é afetada pelo ângulo de colisão com as raquetes e as paredes superior e inferior da tela. A estética é simples, com gráficos monocromáticos e sons básicos para os impactos da bola.
+PongShowdown é um jogo baseado em Pong (1972), o primeiro jogo da história, que tem duas raquetes de lados opostos da tela, uma para cada jogador, o objetivo do jogo é rebater a bola e acertar a parede oposta, marcando um ponto. 
 
 
 
-## 🎲 Objetivo do Jogo
+## 🤠 Duelos do Velho Oeste
+PongShowdown traz também uma nova funcionalidade: após certo tempo de jogo, inicia-se o modo Showdown, o objetivo dos jogadores muda de rebater a bola para acertar a raquete do oponente com “balas”, que podem ser lançadas com a tecla “A” (Jogador 1) ou com a tecla “L” (Jogador 2). As pontuações de acertos na parede e de vezes que acertou o inimigo vão ser somadas e registradas em um ranking, que pode ser acessado na páginal inicial.
 
-O objetivo do Pong é rebater a bola de modo que ela ultrapasse a raquete do adversário, marcando pontos quando isso acontece. Ao mesmo tempo, os jogadores precisam evitar que a bola passe pela sua própria raquete. O primeiro jogador a atingir um determinado número de pontos ganha a partida. A jogabilidade exige precisão, timing e reflexos rápidos para conseguir vencer.
 
-### 🤠 Duelos do Velho Oeste
-O nosso novo recurso será que as raquetes podem disparar e implementamos tiros como forma alternativa de pontuação, o objetivo será acertar o outro jogador.
 
 ## 🕹️ Como Jogar
 
-- Jogador 1 pode usar "W" e "S" controlar as raquetes do lado esquerdo
- -Jogador 2 pode usar as teclas "I" e "J" para controlar as raquetes do lado direito.
+- Jogador 1 pode usar "W" e "S" controlar as raquetes do lado esquerdo. Aperte "A" no modo Showdown para atirar.
+ -Jogador 2 pode usar as teclas "I" e "J" para controlar as raquetes do lado direito. Aperte "L" no modo Showdown para atirar.
 - Certifique-se de manter o Caps Lock desativado.
 - Mantenha suas raquetes em movimento para acertar as bolas e marcar pontos.
+- Quando o modo Showdown iniciar, atire em seu inimigo para ganhar pontuação.
 
 ## ♟️ Executando o Jogo
 
